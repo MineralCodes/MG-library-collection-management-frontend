@@ -1,0 +1,26 @@
+.navigation {
+	width: 100vw;
+	height: 40px;
+	color: $off-white;
+	font-weight: 600;
+	font-size: 14px;
+
+	display: flex;
+	align-items: center;
+	background-color: $deep-navy;
+
+	.navbar {
+		width: 100%;
+
+		display: flex;
+		justify-content: space-around;
+		align-content: center;
+
+		&__link {
+			width: 100px;
+			display: flex;
+			align-content: center;
+			justify-content: center;
+		}
+	}
+}

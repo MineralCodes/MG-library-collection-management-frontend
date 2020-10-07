@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import BookRecord from "../record";
+import BookRecord from "../utils/record";
 
 export default class Home extends Component {
 	constructor() {
@@ -14,7 +14,9 @@ export default class Home extends Component {
 
 	componentDidMount() {
 		axios
-			.get("http://localhost:5000/search/recent-titles")
+			.get(
+				"https://library-collection-management.herokuapp.com/search/recent-titles"
+			)
 			.then((resp) => {
 				this.setState({
 					book_records: resp.data.books,

@@ -17,11 +17,17 @@ export default class BookRecord extends Component {
 					alt={`Title cover for ${title} by ${author}`}
 					className="book-record__cover"
 				/>
-				<div className="book-record__title">{title}</div>
-				<div className="book-record__author">{author}</div>
-				<div className="book-record__pub-year">{publication_year}</div>
-				<div className="book-record__description">{description}</div>
-				<div className="book-record__isbn">{isbn}</div>
+				<div className="book-record__info">
+					<div className="book-record__info__title">{title}</div>
+					<div className="book-record__info__author">{author}</div>
+					<div className="book-record__info__pub-year">
+						{publication_year}
+					</div>
+					<div className="book-record__info__description">
+						{description}
+					</div>
+					<div className="book-record__info__isbn">{isbn}</div>
+				</div>
 			</div>
 		);
 	}
