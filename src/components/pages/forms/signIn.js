@@ -41,7 +41,11 @@ export default class SignIn extends Component {
 				{ withCredentials: true }
 			)
 			.then((resp) => {
-				console.log(resp);
+				if (document.cookie) {
+					this.props.history.push("/account");
+				}
+
+				return resp;
 			})
 			.catch((err) => {
 				console.log(err);

@@ -27,9 +27,10 @@ export default class SelectField extends Component {
 					filteredAuthors: resp.data.authors.sort(
 						this.sortValues("full_name")
 					),
-				}).catch((err) => {
-					console.log(err);
 				});
+			})
+			.catch((err) => {
+				console.log(err);
 			});
 	}
 
@@ -71,6 +72,7 @@ export default class SelectField extends Component {
 			<div className={`select-field ${className}`}>
 				<label className={`select-field__label`}>{title}</label>
 				<input
+					className="select-field__input"
 					type="text"
 					placeholder={placeholder}
 					autoComplete="off"
@@ -82,13 +84,6 @@ export default class SelectField extends Component {
 					name={name}
 					size="5"
 				>
-					{this.state.selectedAuthor ? (
-						<option value={null}>Select Author</option>
-					) : (
-						<option value={null} selected>
-							Select Author
-						</option>
-					)}
 					{this.state.filteredAuthors.map((author, key) => {
 						return (
 							<option

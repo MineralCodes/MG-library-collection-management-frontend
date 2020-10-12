@@ -12,7 +12,7 @@ export default class Home extends Component {
 		};
 	}
 
-	componentDidMount() {
+	getRecentTitles() {
 		axios
 			.get(
 				"https://library-collection-management.herokuapp.com/search/recent-titles"
@@ -25,6 +25,22 @@ export default class Home extends Component {
 			.catch((err) => {
 				console.log(err);
 			});
+	}
+
+	axiosTesting() {
+		axios
+			.get("http://covers.openlibrary.org/b/isbn/9780786296446-M.jpg")
+			.then((resp) => {
+				console.log(resp);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}
+
+	componentDidMount() {
+		this.getRecentTitles();
+		this.axiosTesting();
 	}
 
 	render() {

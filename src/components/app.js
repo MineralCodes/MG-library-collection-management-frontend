@@ -25,6 +25,7 @@ export default class App extends Component {
 			<div className="app">
 				<div className="navigation">
 					<NavBar />
+					<div className="cookie">{document.cookie}</div>
 				</div>
 				<div className="content">
 					<Switch>

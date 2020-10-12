@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { reduxForm, Field } from "redux-form";
+import axios from "axios";
 import { FormInput } from "./formFields";
 import SelectField from "./selectField";
 
@@ -15,6 +15,7 @@ export default class BookForm extends Component {
 			pubYear: "",
 		};
 		this.handleChange = this.handleChange.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
 	handleChange(event) {
@@ -23,11 +24,11 @@ export default class BookForm extends Component {
 		});
 	}
 
-	submitForm() {
+	handleSubmit(event) {
 		const formObject = {
 			form_input: {
 				title: this.state.title,
-				author: this.state.author,
+				author: parseInt(this.state.author),
 				isbn: this.state.isbn,
 				description: this.state.description,
 				pub_year: parseInt(this.state.pubYear),
@@ -35,23 +36,25 @@ export default class BookForm extends Component {
 		};
 
 		axios
-			.post(
-				"https://library-collection-management.herokuapp.com/create/book",
-				formObject,
-				{ withCredentials: ture }
-			)
+			.post("http://127.0.0.1:5000/book/create", formObject, {
+				withCredentials: true,
+			})
 			.then((resp) => {
 				console.log(resp);
 			})
 			.catch((err) => {
 				console.log(err);
 			});
+		event.preventDefault();
 	}
 
 	render() {
-		const { handleSubmit } = this.props;
 		return (
-			<form className={`book-form`} onSubmit={handleSubmit}>
+			<form
+				className="book-form"
+				onSubmit={this.handleSubmit}
+				method="POST"
+			>
 				<FormInput
 					title="Book Title"
 					name="title"

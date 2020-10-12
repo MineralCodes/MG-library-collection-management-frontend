@@ -1,0 +1,43 @@
+.form-input {
+	display: grid;
+	grid-template-columns: [label-s] 200px [label-e input-s] 600px [input-e];
+	grid-template-rows: 1fr;
+	grid-gap: 20px;
+	align-items: center;
+
+	&__label {
+		grid-column: label-s/label-e;
+		font-size: 14px;
+	}
+
+	&__input {
+		grid-column: input-s/input-e;
+		width: 300px;
+		height: 30px;
+	}
+}
+
+.select-field {
+	display: grid;
+	grid-template-columns: [label-s] 200px [label-e input-s] 600px [input-e];
+	grid-template-rows: 1fr;
+	grid-gap: 20px;
+	align-items: center;
+
+	&__label {
+		grid-column: label-s/label-e;
+		font-size: 14px;
+	}
+
+	&__input {
+		grid-column: input-s/input-e;
+		width: 300px;
+		height: 30px;
+	}
+
+	&__select {
+		grid-column: input-s/input-e;
+		width: 300px;
+		height: 100px;
+	}
+}

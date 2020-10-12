@@ -19,6 +19,7 @@ body {
 .content {
 	display: grid;
 	grid-template-columns: 1fr [s] 1000px [e] 1fr;
+	justify-items: center;
 }
 
 a {
