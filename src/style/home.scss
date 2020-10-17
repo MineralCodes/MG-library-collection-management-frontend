@@ -1,12 +1,7 @@
 .home {
-	grid-column: s/e;
-	display: flex;
-	justify-content: center;
-	width: 1000px;
-
 	&__recent-titles {
 		width: 800px;
-		height: 200px;
+		height: 400px;
 		display: grid;
 		grid-template-columns: repeat(auto-fill, 150px);
 	}

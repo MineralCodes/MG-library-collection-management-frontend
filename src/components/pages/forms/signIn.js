@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { connect } from "react-redux";
+import * as actions from "../../../actions";
 
 import { FormInput } from "./formFields";
 
-export default class SignIn extends Component {
+class SignIn extends Component {
 	constructor() {
 		super();
 
@@ -29,11 +31,11 @@ export default class SignIn extends Component {
 			password: "",
 		});
 	}
-
+	//https://library-collection-management.herokuapp.com
 	handleSubmit(event) {
 		axios
 			.post(
-				"https://library-collection-management.herokuapp.com/auth/login",
+				"http://127.0.0.1:5000/auth/login",
 				{
 					email: this.state.email,
 					password: this.state.password,
@@ -41,8 +43,14 @@ export default class SignIn extends Component {
 				{ withCredentials: true }
 			)
 			.then((resp) => {
-				if (document.cookie) {
+				console.log(resp);
+				if ((resp.status = 200)) {
+					this.props.setUserInfo(resp.data);
 					this.props.history.push("/account");
+				} else if ((resp.status = 401)) {
+					return "Invalid password";
+				} else if ((resp.status = 404)) {
+					return "Invalid email";
 				}
 
 				return resp;
@@ -96,3 +104,7 @@ export default class SignIn extends Component {
 		);
 	}
 }
+
+SignIn = connect(null, actions)(SignIn);
+
+export default SignIn;

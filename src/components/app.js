@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 
 import NavBar from "./utils/mainNav";
+import Footer from "./utils/footer";
+
 import Home from "./pages/home";
 import SignIn from "./pages/forms/signIn";
 import SignUp from "./pages/forms/signUp";
@@ -23,10 +25,7 @@ export default class App extends Component {
 	render() {
 		return (
 			<div className="app">
-				<div className="navigation">
-					<NavBar />
-					<div className="cookie">{document.cookie}</div>
-				</div>
+				<NavBar />
 				<div className="content">
 					<Switch>
 						<Route path="/account" component={Account} />
@@ -38,6 +37,7 @@ export default class App extends Component {
 						<Route component={NoMatch} />
 					</Switch>
 				</div>
+				<Footer />
 			</div>
 		);
 	}
