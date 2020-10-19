@@ -3,6 +3,8 @@ import axios from "axios";
 import { FormInput } from "./formFields";
 import SelectField from "./selectField";
 
+import { apiUrl } from "../../../config";
+
 export default class BookForm extends Component {
 	constructor() {
 		super();
@@ -36,7 +38,7 @@ export default class BookForm extends Component {
 		};
 
 		axios
-			.post("http://127.0.0.1:5000/book/create", formObject, {
+			.post(`${apiUrl}/book/create`, formObject, {
 				withCredentials: true,
 			})
 			.then((resp) => {

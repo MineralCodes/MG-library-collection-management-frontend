@@ -3,6 +3,8 @@ import axios from "axios";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
 
+import { apiUrl } from "../../../config";
+
 import { FormInput } from "./formFields";
 
 class SignIn extends Component {
@@ -31,11 +33,11 @@ class SignIn extends Component {
 			password: "",
 		});
 	}
-	//https://library-collection-management.herokuapp.com
+	//
 	handleSubmit(event) {
 		axios
 			.post(
-				"http://127.0.0.1:5000/auth/login",
+				`${apiUrl}/auth/login`,
 				{
 					email: this.state.email,
 					password: this.state.password,
@@ -45,8 +47,9 @@ class SignIn extends Component {
 			.then((resp) => {
 				console.log(resp);
 				if ((resp.status = 200)) {
-					this.props.setUserInfo(resp.data);
-					this.props.history.push("/account");
+					console.log(resp);
+					// this.props.setUserInfo(resp.data);
+					// this.props.history.push("/account");
 				} else if ((resp.status = 401)) {
 					return "Invalid password";
 				} else if ((resp.status = 404)) {

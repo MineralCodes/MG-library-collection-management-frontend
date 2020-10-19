@@ -19,11 +19,9 @@ body {
 		grid-row: header-s/header-e;
 	}
 	.content {
-		grid-column: content-s/content-e;
 		grid-row: content-s/content-e;
 	}
 	.footer {
-		grid-column: header-footer-s/header-footer-e;
 		grid-row: footer-s/footer-e;
 	}
 }

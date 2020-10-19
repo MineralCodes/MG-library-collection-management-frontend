@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+import { apiUrl } from "../../../config";
+
 import { FormInput } from "./formFields";
 
 export default class SignIn extends Component {
@@ -34,7 +36,7 @@ export default class SignIn extends Component {
 	handleSubmit(event) {
 		axios
 			.post(
-				"https://library-collection-management.herokuapp.com/auth/register",
+				`${apiUrl}/auth/register`,
 				{
 					email: this.state.email,
 					password: this.state.password,

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
-import { checkLoggedInStatus } from "../../functions/userFunctions";
-import * as actions from "../../actions";
+
+import { apiUrl } from "../../config";
 
 import BookRecord from "../utils/record";
 
@@ -13,15 +13,11 @@ class Home extends Component {
 		this.state = {
 			book_records: [],
 		};
-
-		this.validateUserInfo = this.validateUserInfo.bind(this);
 	}
 
 	getRecentTitles() {
 		axios
-			.get(
-				"https://library-collection-management.herokuapp.com/search/recent-titles"
-			)
+			.get(`${apiUrl}/search/recent-titles`)
 			.then((resp) => {
 				this.setState({
 					book_records: resp.data.books,
@@ -32,31 +28,8 @@ class Home extends Component {
 			});
 	}
 
-	validateUserInfo() {
-		console.log("tryna validate user info");
-		if (document.cookie != "") {
-			axios
-				.post(
-					"https://library-collection-management.herokuapp.com/auth/validate",
-					{ withCredentials: true }
-				)
-				.then((resp) => {
-					console.log(resp.data);
-					const { _id, role, email } = resp.data;
-					return { _id, role, email };
-				})
-				.catch((err) => {
-					console.log("validate user info error:", err);
-				});
-		} else {
-			return { _id: 0, role: "guest", email: "" };
-		}
-	}
-
 	componentDidMount() {
 		this.getRecentTitles();
-		checkLoggedInStatus(this.props._id, this.props.setUserInfo);
-		//this.props.setUserInfo(this.validateUserInfo());
 	}
 
 	render() {
@@ -78,6 +51,6 @@ function mapStateToProps(state) {
 	return { _id, email, role, loggedIn };
 }
 
-Home = connect(mapStateToProps, actions)(Home);
+Home = connect(mapStateToProps)(Home);
 
 export default Home;

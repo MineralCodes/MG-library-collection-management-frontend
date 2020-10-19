@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
+
+import { apiUrl } from "../../../config";
+
 export default class SelectField extends Component {
 	constructor() {
 		super();
@@ -18,9 +21,7 @@ export default class SelectField extends Component {
 
 	fetchAuthors() {
 		axios
-			.get(
-				"https://library-collection-management.herokuapp.com/author/getall"
-			)
+			.get(`${apiUrl}/author/getall`)
 			.then((resp) => {
 				this.setState({
 					authors: resp.data.authors,
