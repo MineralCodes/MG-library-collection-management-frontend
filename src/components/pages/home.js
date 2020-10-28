@@ -47,8 +47,8 @@ class Home extends Component {
 }
 
 function mapStateToProps(state) {
-	const { _id, email, role, loggedIn } = state.user;
-	return { _id, email, role, loggedIn };
+	const { _id, email, user_role, loggedIn } = state.user;
+	return { _id, email, user_role, loggedIn };
 }
 
 Home = connect(mapStateToProps)(Home);

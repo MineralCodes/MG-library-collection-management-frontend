@@ -10,9 +10,14 @@ export function checkLoggedInStatus(userID, action) {
 			axios
 				.post(`${apiUrl}/auth/validate`, {}, { withCredentials: true })
 				.then((resp) => {
-					console.log(resp);
-					const { _id, email, role } = resp.data;
-					const userObject = { _id, email, role, loggedIn: true };
+					console.log(resp.data);
+					const { _id, email, user_role } = resp.data;
+					const userObject = {
+						_id,
+						email,
+						user_role,
+						loggedIn: true,
+					};
 					action(userObject);
 				})
 				.catch((err) => {
@@ -26,7 +31,7 @@ export function checkLoggedInStatus(userID, action) {
 		const userObject = {
 			_id: 0,
 			email: "",
-			role: "guest",
+			user_role: "guest",
 			loggedIn: false,
 		};
 		action(userObject);
@@ -37,7 +42,7 @@ export function logoutUser(action) {
 	const clearUser = {
 		_id: 0,
 		email: "",
-		role: "guest",
+		user_role: "guest",
 		loggedIn: false,
 	};
 

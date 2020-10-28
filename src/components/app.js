@@ -29,7 +29,7 @@ import NoMatch from "./pages/noMatch";
 
 class App extends Component {
 	componentDidMount() {
-		//checkLoggedInStatus(this.props._id, this.props.setUserInfo);
+		checkLoggedInStatus(this.props._id, this.props.setUserInfo);
 	}
 
 	render() {
@@ -43,7 +43,7 @@ class App extends Component {
 						<Route path="/signup" component={SignUp} />
 						<Route path="/search" component={Search} />
 						<Route path="/results" component={Results} />
-						{this.props.role == "admin" ? (
+						{this.props.user_role == "admin" ? (
 							<Route path="/book/create" component={BookForm} />
 						) : (
 							""
@@ -59,8 +59,8 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-	const { _id, role, loggedIn } = state.user;
-	return { _id, role, loggedIn };
+	const { _id, user_role, loggedIn } = state.user;
+	return { _id, user_role, loggedIn };
 }
 
 App = withRouter(connect(mapStateToProps, actions)(App));

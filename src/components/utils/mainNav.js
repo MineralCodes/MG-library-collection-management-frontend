@@ -24,12 +24,12 @@ class NavBar extends Component {
 						Account
 					</NavLink>
 				) : null}
-				{!this.props.loggedIn ? (
+				{this.props.loggedIn == false ? (
 					<NavLink className="navbar__link" to="/signin">
 						Sign In
 					</NavLink>
 				) : null}
-				{this.props.role == "admin" ? (
+				{this.props.user_role == "admin" ? (
 					<NavLink className="navbar__link" to="/book/create">
 						Create Record
 					</NavLink>
@@ -40,8 +40,8 @@ class NavBar extends Component {
 }
 
 function mapStateToProps(state) {
-	const { role, loggedIn } = state.user;
-	return { role, loggedIn };
+	const { user_role, loggedIn } = state.user;
+	return { user_role, loggedIn };
 }
 
 NavBar = connect(mapStateToProps, actions)(NavBar);
