@@ -1,18 +1,20 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+import { connect } from "react-redux";
+import * as actions from "../../../actions";
+
 import { apiUrl } from "../../../config";
 
 import { FormInput } from "./formFields";
 
-export default class SignIn extends Component {
+class SignIn extends Component {
 	constructor() {
 		super();
 
 		this.state = {
 			email: "",
 			password: "",
-			confirm: "",
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -33,6 +35,12 @@ export default class SignIn extends Component {
 		});
 	}
 
+	componentDidMount() {
+		if (this.props._id > 0) {
+			this.props.history.push("/account");
+		}
+	}
+
 	handleSubmit(event) {
 		axios
 			.post(
@@ -45,8 +53,14 @@ export default class SignIn extends Component {
 				{ withCredentials: true }
 			)
 			.then((resp) => {
-				console.log(resp);
-				this.props.history.push("/");
+				if (resp.status == 200) {
+					this.props.setUserInfo(resp.data);
+					this.props.history.push("/account");
+					return resp;
+				} else if (resp.status == 409) {
+					console.log(resp);
+					return resp;
+				}
 			})
 			.catch((err) => {
 				console.log(err);
@@ -107,3 +121,12 @@ export default class SignIn extends Component {
 		);
 	}
 }
+
+function mapStateToProps(state) {
+	const { _id } = state.user;
+	return { _id };
+}
+
+SignIn = connect(mapStateToProps, actions)(SignIn);
+
+export default SignIn;

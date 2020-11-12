@@ -11,8 +11,8 @@ import Footer from "./utils/footer";
 import Home from "./pages/home";
 import SignIn from "./pages/forms/signIn";
 import SignUp from "./pages/forms/signUp";
-import Results from "./pages/searchResults";
-import Search from "./pages/search";
+import Results from "./search/queryResults";
+import Search from "./search/search";
 import Account from "./pages/account/account";
 import BookForm from "./pages/forms/bookForm";
 import NoMatch from "./pages/noMatch";
@@ -41,7 +41,7 @@ class App extends Component {
 						<Route path="/account" component={Account} />
 						<Route path="/signin" component={SignIn} />
 						<Route path="/signup" component={SignUp} />
-						<Route path="/search" component={Search} />
+						<Route path="/search/:search" component={Search} />
 						<Route path="/results" component={Results} />
 						{this.props.user_role == "admin" ? (
 							<Route path="/book/create" component={BookForm} />

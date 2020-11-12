@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { apiUrl } from "../../config";
 
 import BookRecord from "../utils/record";
+import SearchBar from "../search/searchBar";
 
 class Home extends Component {
 	constructor() {
@@ -19,6 +20,7 @@ class Home extends Component {
 		axios
 			.get(`${apiUrl}/search/recent-titles`)
 			.then((resp) => {
+				console.log("get recent titles:", resp);
 				this.setState({
 					book_records: resp.data.books,
 				});
@@ -35,7 +37,11 @@ class Home extends Component {
 	render() {
 		return (
 			<div className="home">
-				Homepage
+				<div className="home__title">Homepage</div>
+				<SearchBar
+					className="home__search-bar"
+					history={this.props.history}
+				/>
 				<div className="home__recent-titles">
 					{this.state.book_records.map((book) => {
 						return <BookRecord key={book.id} {...book} />;
