@@ -35,8 +35,8 @@ class SignIn extends Component {
 			password: "",
 		});
 	}
-	//
-	handleSubmit(event) {
+
+	handleSubmit() {
 		axios
 			.post(
 				`${apiUrl}/auth/login`,
@@ -47,33 +47,35 @@ class SignIn extends Component {
 				{ withCredentials: true }
 			)
 			.then((resp) => {
-				console.log(resp);
 				if ((resp.status = 200)) {
-					console.log(resp);
-					// this.props.setUserInfo(resp.data);
-					// this.props.history.push("/account");
+					console.log("response", resp);
+					this.props.setUserInfo(resp.data);
+					this.props.history.push("/account");
+					return resp;
 				} else if ((resp.status = 401)) {
 					return "Invalid password";
 				} else if ((resp.status = 404)) {
 					return "Invalid email";
 				}
-
-				return resp;
 			})
 			.catch((err) => {
 				console.log(err);
 			});
-		event.preventDefault();
+		// event.preventDefault();
+	}
+
+	componentDidMount() {
+		console.log("signIn component mounting", this.props.loggedIn);
+		if (this.props.loggedIn) {
+			console.log(this.props._id);
+			//this.props.history.push("/account");
+		}
 	}
 
 	render() {
 		return (
 			<div className="sign-in">
-				<form
-					className="sign-in__form"
-					onSubmit={this.handleSubmit}
-					method="POST"
-				>
+				<form className="sign-in__form" method="POST">
 					<FormInput
 						title="Email"
 						name="email"
@@ -101,7 +103,11 @@ class SignIn extends Component {
 					>
 						Cancel
 					</button>
-					<button type="submit" className="sign-in__form__submit">
+					<button
+						type="button"
+						className="sign-in__form__submit"
+						onClick={() => this.props.history.push("/")}
+					>
 						Login
 					</button>
 				</form>
@@ -114,6 +120,11 @@ class SignIn extends Component {
 	}
 }
 
-SignIn = connect(null, actions)(SignIn);
+function mapStateToProps(state) {
+	const { _id, loggedIn } = state.user;
+	return { _id, loggedIn };
+}
+
+SignIn = connect(mapStateToProps, actions)(SignIn);
 
 export default SignIn;

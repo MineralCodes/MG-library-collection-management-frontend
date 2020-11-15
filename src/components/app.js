@@ -12,23 +12,15 @@ import Home from "./pages/home";
 import SignIn from "./pages/forms/signIn";
 import SignUp from "./pages/forms/signUp";
 import Results from "./search/queryResults";
+import BookDetail from "./pages/book-detail";
 import Search from "./search/search";
 import Account from "./pages/account/account";
 import BookForm from "./pages/forms/bookForm";
 import NoMatch from "./pages/noMatch";
 
-/*TODO
-    Navbar
-        Sign In/Out
-        Create Record
-    Recent Titles
-    Search
-    BOok Details
-
-*/
-
 class App extends Component {
 	componentDidMount() {
+		console.log("app component mounting");
 		checkLoggedInStatus(this.props._id, this.props.setUserInfo);
 	}
 
@@ -43,6 +35,7 @@ class App extends Component {
 						<Route path="/signup" component={SignUp} />
 						<Route path="/search/:search" component={Search} />
 						<Route path="/results" component={Results} />
+						<Route path="/detail/:id" component={BookDetail} />
 						{this.props.user_role == "admin" ? (
 							<Route path="/book/create" component={BookForm} />
 						) : (

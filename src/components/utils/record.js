@@ -23,10 +23,6 @@ export default class BookRecord extends Component {
 					<div className="book-record__info__pub-year">
 						{publication_year}
 					</div>
-					<div className="book-record__info__description">
-						{description}
-					</div>
-					<div className="book-record__info__isbn">{isbn}</div>
 				</div>
 			</div>
 		);

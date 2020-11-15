@@ -10,7 +10,6 @@ export function checkLoggedInStatus(userID, action) {
 			axios
 				.post(`${apiUrl}/auth/validate`, {}, { withCredentials: true })
 				.then((resp) => {
-					console.log(resp.data);
 					const { _id, email, user_role } = resp.data;
 					const userObject = {
 						_id,

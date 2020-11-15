@@ -15,6 +15,7 @@ export default class BookForm extends Component {
 			isbn: "",
 			description: "",
 			pubYear: "",
+			edit: false,
 		};
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -48,6 +49,26 @@ export default class BookForm extends Component {
 				console.log(err);
 			});
 		event.preventDefault();
+	}
+
+	componentDidMount() {
+		if (this.props.edit) {
+			const {
+				title,
+				author,
+				isbn,
+				description,
+				pubYear,
+			} = this.props.bookData;
+
+			this.setState({
+				title: title,
+				author: author,
+				isbn: isbn,
+				description: description,
+				pubYear: pubYear,
+			});
+		}
 	}
 
 	render() {
