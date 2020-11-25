@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import * as actions from "../../../actions";
 
 import { apiUrl } from "../../../config";
+import { checkLoggedInStatus } from "../../../functions/userFunctions";
 
 import { FormInput } from "./formFields";
 
@@ -36,7 +37,8 @@ class SignIn extends Component {
 	}
 
 	componentDidMount() {
-		if (this.props._id > 0) {
+		//checkLoggedInStatus(this.props._id, this.props.setUserInfo);
+		if (this.props.logged_in) {
 			this.props.history.push("/account");
 		}
 	}
@@ -123,8 +125,8 @@ class SignIn extends Component {
 }
 
 function mapStateToProps(state) {
-	const { _id } = state.user;
-	return { _id };
+	const { _id, logged_in } = state.user;
+	return { _id, logged_in };
 }
 
 SignIn = connect(mapStateToProps, actions)(SignIn);

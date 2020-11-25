@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import * as actions from "../../../actions";
 
+import { checkLoggedInStatus } from "../../../functions/userFunctions";
 import UserDetails from "./userDetails";
 
 class Account extends Component {
 	componentDidMount() {
-		if (!this.props.loggedIn) {
-			this.props.history.push("/signin");
-		}
+		console.log("account component mounting");
+		checkLoggedInStatus(this.props._id, this.props.setUserInfo);
 	}
 
 	render() {
@@ -21,10 +22,10 @@ class Account extends Component {
 }
 //
 function mapStateToProps(state) {
-	const { user } = state;
-	return user;
+	const { _id, email, user_role, logged_in } = state.user;
+	return { _id, email, user_role, logged_in };
 }
 
-Account = connect(mapStateToProps)(Account);
+Account = connect(mapStateToProps, actions)(Account);
 
 export default Account;

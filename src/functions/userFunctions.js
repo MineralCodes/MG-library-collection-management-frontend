@@ -15,7 +15,7 @@ export function checkLoggedInStatus(userID, action) {
 						_id,
 						email,
 						user_role,
-						loggedIn: true,
+						logged_in: true,
 					};
 					action(userObject);
 				})
@@ -31,33 +31,8 @@ export function checkLoggedInStatus(userID, action) {
 			_id: 0,
 			email: "",
 			user_role: "guest",
-			loggedIn: false,
+			logged_in: false,
 		};
 		action(userObject);
-	}
-}
-
-export function logoutUser(action) {
-	const clearUser = {
-		_id: 0,
-		email: "",
-		user_role: "guest",
-		loggedIn: false,
-	};
-
-	if (document.cookie.includes("token=")) {
-		axios
-			.post(`${apiUrl}/auth/logout`, { withCredentials: true })
-			.then((resp) => {
-				console.log(resp);
-				action(clearUser);
-				this.props.history.push("/");
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	} else {
-		console.log("no cookie");
-		action(clearUser);
 	}
 }

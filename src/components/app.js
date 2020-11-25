@@ -19,11 +19,6 @@ import BookForm from "./pages/forms/bookForm";
 import NoMatch from "./pages/noMatch";
 
 class App extends Component {
-	componentDidMount() {
-		console.log("app component mounting");
-		checkLoggedInStatus(this.props._id, this.props.setUserInfo);
-	}
-
 	render() {
 		return (
 			<div className="app">
@@ -52,8 +47,8 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-	const { _id, user_role, loggedIn } = state.user;
-	return { _id, user_role, loggedIn };
+	const { _id, user_role, logged_in } = state.user;
+	return { _id, user_role, logged_in };
 }
 
 App = withRouter(connect(mapStateToProps, actions)(App));

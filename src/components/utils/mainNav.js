@@ -2,12 +2,17 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
-
-import { logoutUser } from "../../functions/userFunctions";
+import { checkLoggedInStatus } from "../../functions/userFunctions";
+import LogoutLink from "./LogoutLink";
 
 class NavBar extends Component {
 	constructor() {
 		super();
+	}
+
+	componentDidMount() {
+		console.log("nav component mounting", this.props.logged_in);
+		checkLoggedInStatus(this.props._id, this.props.setUserInfo);
 	}
 
 	render() {
@@ -19,16 +24,21 @@ class NavBar extends Component {
 				<NavLink className="navbar__link" to="/search">
 					Search
 				</NavLink>
-				{this.props.loggedIn ? (
+				{this.props.logged_in ? (
 					<NavLink className="navbar__link" to="/account">
 						Account
 					</NavLink>
 				) : null}
-				{this.props.loggedIn == false ? (
+				{this.props.logged_in == false ? (
 					<NavLink className="navbar__link" to="/signin">
 						Sign In
 					</NavLink>
-				) : null}
+				) : (
+					<LogoutLink
+						className="navbar__link"
+						history={this.props.history}
+					/>
+				)}
 				{this.props.user_role == "admin" ? (
 					<NavLink className="navbar__link" to="/book/create">
 						Create Record
@@ -40,8 +50,8 @@ class NavBar extends Component {
 }
 
 function mapStateToProps(state) {
-	const { user_role, loggedIn } = state.user;
-	return { user_role, loggedIn };
+	const { _id, user_role, logged_in } = state.user;
+	return { _id, user_role, logged_in };
 }
 
 NavBar = connect(mapStateToProps, actions)(NavBar);

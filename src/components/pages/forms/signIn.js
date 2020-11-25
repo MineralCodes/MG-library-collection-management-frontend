@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import * as actions from "../../../actions";
 
 import { apiUrl } from "../../../config";
+import { checkLoggedInStatus } from "../../../functions/userFunctions";
 
 import { FormInput } from "./formFields";
 
@@ -49,7 +50,10 @@ class SignIn extends Component {
 			.then((resp) => {
 				if ((resp.status = 200)) {
 					console.log("response", resp);
-					this.props.setUserInfo(resp.data);
+					this.props.setUserInfo({
+						...resp.data.user,
+						logged_in: true,
+					});
 					this.props.history.push("/account");
 					return resp;
 				} else if ((resp.status = 401)) {
@@ -65,10 +69,11 @@ class SignIn extends Component {
 	}
 
 	componentDidMount() {
-		console.log("signIn component mounting", this.props.loggedIn);
-		if (this.props.loggedIn) {
+		console.log("signIn component mounting", this.props.logged_in);
+		//checkLoggedInStatus(this.props._id, this.props.setUserInfo);
+		if (this.props.logged_in) {
 			console.log(this.props._id);
-			//this.props.history.push("/account");
+			this.props.history.push("/account");
 		}
 	}
 
@@ -106,7 +111,7 @@ class SignIn extends Component {
 					<button
 						type="button"
 						className="sign-in__form__submit"
-						onClick={() => this.props.history.push("/")}
+						onClick={this.handleSubmit}
 					>
 						Login
 					</button>
@@ -121,8 +126,8 @@ class SignIn extends Component {
 }
 
 function mapStateToProps(state) {
-	const { _id, loggedIn } = state.user;
-	return { _id, loggedIn };
+	const { _id, logged_in } = state.user;
+	return { _id, logged_in };
 }
 
 SignIn = connect(mapStateToProps, actions)(SignIn);
