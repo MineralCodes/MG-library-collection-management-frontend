@@ -1,3 +1,4 @@
 import { setUserInfo } from "./user";
+import { setCurrentQuery } from "./search";
 
-export { setUserInfo };
+export { setUserInfo, setCurrentQuery };

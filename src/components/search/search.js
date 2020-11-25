@@ -1,10 +1,14 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { connect } from "react-redux";
+
+import * as actions from "../../actions";
+
 import { apiUrl } from "../../config";
 import SearchBar from "./searchBar";
 import Results from "./queryResults";
 
-export default class Search extends Component {
+class Search extends Component {
 	constructor(props) {
 		super(props);
 
@@ -15,9 +19,11 @@ export default class Search extends Component {
 	}
 
 	componentDidMount() {
+		this.props.setCurrentQuery(this.state.query);
+
 		axios
 			.post(`${apiUrl}/search/query`, {
-				search_string: this.props.match.params.search,
+				search_string: this.state.query,
 			})
 			.then((resp) => {
 				this.setState({
@@ -68,3 +74,7 @@ export default class Search extends Component {
 		);
 	}
 }
+
+Search = connect(null, actions)(Search);
+
+export default Search;
