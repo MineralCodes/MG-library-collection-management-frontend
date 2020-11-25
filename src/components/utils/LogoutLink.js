@@ -17,7 +17,7 @@ class LogoutLink extends Component {
 
 		if (document.cookie.includes("token=")) {
 			axios
-				.post(`${apiUrl}/auth/logout`, { withCredentials: true })
+				.post(`${apiUrl}/auth/logout`, {}, { withCredentials: true })
 				.then((resp) => {
 					console.log(resp);
 					setInfo(clearUser);
