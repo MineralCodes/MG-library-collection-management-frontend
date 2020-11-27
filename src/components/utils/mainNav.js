@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import * as actions from "../../actions";
 import { checkLoggedInStatus } from "../../functions/userFunctions";
 import LogoutLink from "./LogoutLink";
+import SearchBar from "../search/searchBar";
 
 class NavBar extends Component {
 	constructor() {
@@ -21,9 +22,7 @@ class NavBar extends Component {
 				<NavLink className="navbar__link" to="/">
 					Home
 				</NavLink>
-				<NavLink className="navbar__link" to="/search">
-					Search
-				</NavLink>
+				<SearchBar className="navbar__search-bar" navBar={true} />
 				{this.props.logged_in ? (
 					<NavLink className="navbar__link" to="/account">
 						Account

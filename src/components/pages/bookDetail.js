@@ -36,7 +36,7 @@ export default class BookDetails extends Component {
 
 	render() {
 		return (
-			<div className="book-detail">
+			<div className="bookDetail">
 				<img
 					src={`http://covers.openlibrary.org/b/isbn/${this.state.isbn}-L.jpg`}
 					alt={`Title cover for ${this.state.title} by ${this.state.author}`}
@@ -56,7 +56,7 @@ export default class BookDetails extends Component {
 					<Link
 						to={{
 							pathname: "/book/create",
-							state: { id: this.state.id },
+							state: { id: this.state.id, editMode: true },
 						}}
 					>
 						Edit

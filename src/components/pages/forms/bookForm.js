@@ -15,15 +15,22 @@ export default class BookForm extends Component {
 			isbn: "",
 			description: "",
 			pubYear: "",
-			edit: false,
+			editMode: false,
 		};
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.hydrateState = this.hydrateState.bind(this);
 	}
 
 	handleChange(event) {
 		this.setState({
 			[event.target.name]: event.target.value,
+		});
+	}
+
+	hydrateState(data) {
+		this.setState({
+			...data,
 		});
 	}
 
@@ -52,22 +59,18 @@ export default class BookForm extends Component {
 	}
 
 	componentDidMount() {
-		if (this.props.edit) {
-			const {
-				title,
-				author,
-				isbn,
-				description,
-				pubYear,
-			} = this.props.bookData;
+		const { id, editMode } = this.props.location.state;
 
-			this.setState({
-				title: title,
-				author: author,
-				isbn: isbn,
-				description: description,
-				pubYear: pubYear,
-			});
+		if (id) {
+			axios
+				.get(`${apiUrl}/book/${id}`)
+				.then((resp) => {
+					console.log(resp);
+					this.setState({ ...resp.data.books[0], editMode });
+				})
+				.catch((err) => {
+					console.log("book form mount error", err);
+				});
 		}
 	}
 

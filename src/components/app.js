@@ -12,7 +12,7 @@ import Home from "./pages/home";
 import SignIn from "./pages/forms/signIn";
 import SignUp from "./pages/forms/signUp";
 import Results from "./search/queryResults";
-import BookDetail from "./pages/book-detail";
+import BookDetail from "./pages/bookDetail";
 import Search from "./search/search";
 import Account from "./pages/account/account";
 import BookForm from "./pages/forms/bookForm";

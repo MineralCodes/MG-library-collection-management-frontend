@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import history from "../utils/history";
 
 export default class SearchBar extends Component {
 	constructor(props) {
@@ -10,6 +11,7 @@ export default class SearchBar extends Component {
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleKeyPress = this.handleKeyPress.bind(this);
 	}
 
 	handleChange(event) {
@@ -18,7 +20,13 @@ export default class SearchBar extends Component {
 		});
 	}
 
-	handleSubmit(history) {
+	handleKeyPress(event) {
+		if (event.key === "Enter") {
+			this.handleSubmit();
+		}
+	}
+
+	handleSubmit() {
 		const searchTerms = this.state.searchBar;
 		const searchString = searchTerms.replace(/ /g, "+");
 
@@ -35,7 +43,7 @@ export default class SearchBar extends Component {
 	}
 
 	render() {
-		const { className, history } = this.props;
+		const { className, navBar } = this.props;
 		return (
 			<div className={`${className} search-bar`}>
 				<input
@@ -45,14 +53,17 @@ export default class SearchBar extends Component {
 					placeholder="Enter Search Terms Here"
 					value={this.state.searchBar}
 					onChange={this.handleChange}
+					onKeyPress={this.handleKeyPress}
 				/>
-				<button
-					className="search-bar__submit"
-					type="button"
-					onClick={() => this.handleSubmit(history)}
-				>
-					Search
-				</button>
+				{!navBar ? (
+					<button
+						className="search-bar__submit"
+						type="button"
+						onClick={() => this.handleSubmit()}
+					>
+						Search
+					</button>
+				) : null}
 			</div>
 		);
 	}

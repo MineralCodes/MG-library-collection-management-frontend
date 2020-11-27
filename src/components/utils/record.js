@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 export default class BookRecord extends Component {
 	render() {
@@ -8,10 +9,11 @@ export default class BookRecord extends Component {
 			publication_year,
 			isbn,
 			description,
+			id,
 		} = this.props;
 
 		return (
-			<div className="book-record">
+			<Link to={`/detail/${id}`} className="book-record">
 				<img
 					src={`http://covers.openlibrary.org/b/isbn/${isbn}-M.jpg`}
 					alt={`Title cover for ${title} by ${author}`}
@@ -24,7 +26,7 @@ export default class BookRecord extends Component {
 						{publication_year}
 					</div>
 				</div>
-			</div>
+			</Link>
 		);
 	}
 }
