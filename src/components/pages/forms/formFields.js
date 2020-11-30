@@ -10,6 +10,7 @@ export class FormInput extends Component {
 			value,
 			name,
 			handleChange,
+			handleKeyup,
 		} = this.props;
 		return (
 			<div className={`form-input ${className}`}>
@@ -21,6 +22,7 @@ export class FormInput extends Component {
 					placeholder={placeholder}
 					value={value}
 					onChange={handleChange}
+					onKeyUp={handleKeyup}
 				/>
 			</div>
 		);
@@ -29,13 +31,14 @@ export class FormInput extends Component {
 
 export class FormButton extends Component {
 	render() {
-		const { className, title, type, onClick } = this.props;
+		const { className, title, type, onClick, disabled } = this.props;
 		return (
 			<div className={`${className} form-button`}>
 				<button
 					className={`form-button__button`}
 					type={type}
 					onClick={onClick}
+					disabled={disabled ? disabled : false}
 				>
 					{title}
 				</button>

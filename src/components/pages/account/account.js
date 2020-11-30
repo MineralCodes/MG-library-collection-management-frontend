@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import * as actions from "../../../actions";
 
 import { checkLoggedInStatus } from "../../../functions/userFunctions";
+import UpdatePasswordForm from "../forms/updatePasswordForm";
 import UserDetails from "./userDetails";
 
 class Account extends Component {
@@ -15,7 +16,11 @@ class Account extends Component {
 		return (
 			<div className="account">
 				<div className="account__title">User Account</div>
-				<UserDetails className="account__user-details" />
+				<UserDetails
+					className="account__user-details"
+					{...this.props}
+				/>
+				<UpdatePasswordForm className="account__update-password" />
 			</div>
 		);
 	}
