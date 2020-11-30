@@ -18,6 +18,7 @@ export default class BookForm extends Component {
 			editMode: false,
 		};
 		this.handleChange = this.handleChange.bind(this);
+		this.handleClear = this.handleClear.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.hydrateState = this.hydrateState.bind(this);
 	}
@@ -28,13 +29,23 @@ export default class BookForm extends Component {
 		});
 	}
 
+	handleClear() {
+		this.setState({
+			title: "",
+			author: "",
+			isbn: "",
+			description: "",
+			pubYear: "",
+		});
+	}
+
 	hydrateState(data) {
 		this.setState({
 			...data,
 		});
 	}
 
-	handleSubmit(event) {
+	handleSubmit() {
 		const formObject = {
 			form_input: {
 				title: this.state.title,
@@ -55,7 +66,6 @@ export default class BookForm extends Component {
 			.catch((err) => {
 				console.log(err);
 			});
-		event.preventDefault();
 	}
 
 	componentDidMount() {
@@ -76,11 +86,7 @@ export default class BookForm extends Component {
 
 	render() {
 		return (
-			<form
-				className="book-form"
-				onSubmit={this.handleSubmit}
-				method="POST"
-			>
+			<form className="book-form">
 				<FormInput
 					title="Book Title"
 					name="title"
@@ -129,21 +135,18 @@ export default class BookForm extends Component {
 					value={this.state.pubYear}
 				/>
 
-				<button
+				<FormButton
 					className="book-form__cancel"
-					onClick={() =>
-						this.setState({
-							title: "",
-							author: "",
-							isbn: "",
-							description: "",
-							pubYear: "",
-						})
-					}
-				>
-					Cancel
-				</button>
-				<button className="book-form__submit">Submit</button>
+					type="button"
+					onClick={this.handleClear}
+					title="Cancel"
+				/>
+				<FormButton
+					className="book-form__submit"
+					type="button"
+					onClick={this.handleSubmit}
+					title="Submit"
+				/>
 			</form>
 		);
 	}
