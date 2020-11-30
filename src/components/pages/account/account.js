@@ -8,7 +8,7 @@ import UserDetails from "./userDetails";
 class Account extends Component {
 	componentDidMount() {
 		console.log("account component mounting");
-		checkLoggedInStatus(this.props._id, this.props.setUserInfo);
+		checkLoggedInStatus(this.props.id, this.props.setUserInfo);
 	}
 
 	render() {
@@ -22,8 +22,8 @@ class Account extends Component {
 }
 //
 function mapStateToProps(state) {
-	const { _id, email, user_role, logged_in } = state.user;
-	return { _id, email, user_role, logged_in };
+	const { id, email, user_role, logged_in } = state.user;
+	return { id, email, user_role, logged_in };
 }
 
 Account = connect(mapStateToProps, actions)(Account);

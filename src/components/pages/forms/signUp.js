@@ -37,7 +37,7 @@ class SignIn extends Component {
 	}
 
 	componentDidMount() {
-		//checkLoggedInStatus(this.props._id, this.props.setUserInfo);
+		//checkLoggedInStatus(this.props.id, this.props.setUserInfo);
 		if (this.props.logged_in) {
 			this.props.history.push("/account");
 		}
@@ -125,8 +125,8 @@ class SignIn extends Component {
 }
 
 function mapStateToProps(state) {
-	const { _id, logged_in } = state.user;
-	return { _id, logged_in };
+	const { id, logged_in } = state.user;
+	return { id, logged_in };
 }
 
 SignIn = connect(mapStateToProps, actions)(SignIn);

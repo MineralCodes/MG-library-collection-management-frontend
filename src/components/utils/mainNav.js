@@ -13,7 +13,7 @@ class NavBar extends Component {
 
 	componentDidMount() {
 		console.log("nav component mounting", this.props.logged_in);
-		checkLoggedInStatus(this.props._id, this.props.setUserInfo);
+		checkLoggedInStatus(this.props.id, this.props.setUserInfo);
 	}
 
 	render() {
@@ -49,8 +49,8 @@ class NavBar extends Component {
 }
 
 function mapStateToProps(state) {
-	const { _id, user_role, logged_in } = state.user;
-	return { _id, user_role, logged_in };
+	const { id, user_role, logged_in } = state.user;
+	return { id, user_role, logged_in };
 }
 
 NavBar = connect(mapStateToProps, actions)(NavBar);

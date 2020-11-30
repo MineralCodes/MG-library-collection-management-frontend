@@ -47,8 +47,8 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-	const { _id, user_role, logged_in } = state.user;
-	return { _id, user_role, logged_in };
+	const { id, user_role, logged_in } = state.user;
+	return { id, user_role, logged_in };
 }
 
 App = withRouter(connect(mapStateToProps, actions)(App));

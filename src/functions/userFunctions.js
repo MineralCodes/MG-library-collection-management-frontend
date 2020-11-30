@@ -10,9 +10,9 @@ export function checkLoggedInStatus(userID, action) {
 			axios
 				.post(`${apiUrl}/auth/validate`, {}, { withCredentials: true })
 				.then((resp) => {
-					const { _id, email, user_role } = resp.data;
+					const { id, email, user_role } = resp.data;
 					const userObject = {
-						_id,
+						id,
 						email,
 						user_role,
 						logged_in: true,
@@ -28,7 +28,7 @@ export function checkLoggedInStatus(userID, action) {
 	} else {
 		console.log("cookie check false");
 		const userObject = {
-			_id: 0,
+			id: 0,
 			email: "",
 			user_role: "guest",
 			logged_in: false,

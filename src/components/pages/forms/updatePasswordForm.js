@@ -29,7 +29,7 @@ class UpdatePasswordForm extends Component {
 
 	handleSubmit() {
 		const formObject = {
-			id: this.props._id,
+			id: this.props.id,
 			password: this.state.currentPassword,
 			new_password: this.state.newPassword,
 			confirm_password: this.state.confirmPassword,
@@ -136,8 +136,8 @@ class UpdatePasswordForm extends Component {
 }
 
 function mapStateToProps(state) {
-	const { _id } = state.user;
-	return { _id };
+	const { id } = state.user;
+	return { id };
 }
 
 UpdatePasswordForm = connect(mapStateToProps)(UpdatePasswordForm);

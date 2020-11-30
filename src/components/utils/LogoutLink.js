@@ -9,7 +9,7 @@ import * as actions from "../../actions";
 class LogoutLink extends Component {
 	logoutUser(setInfo) {
 		const clearUser = {
-			_id: 0,
+			id: 0,
 			email: "",
 			user_role: "guest",
 			logged_in: false,
