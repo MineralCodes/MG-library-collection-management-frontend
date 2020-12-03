@@ -7,9 +7,14 @@ import UpdatePasswordForm from "../forms/updatePasswordForm";
 import UserDetails from "./userDetails";
 
 class Account extends Component {
-	componentDidMount() {
-		console.log("account component mounting");
-		checkLoggedInStatus(this.props.id, this.props.setUserInfo);
+	componentDidUpdate(prevProps) {
+		if (this.props.logged_in != prevProps.logged_in) {
+			return null;
+		} else {
+			if (!this.props.logged_in) {
+				this.props.history.push("/signin");
+			}
+		}
 	}
 
 	render() {

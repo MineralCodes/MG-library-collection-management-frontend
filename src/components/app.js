@@ -19,6 +19,10 @@ import BookForm from "./pages/forms/bookForm";
 import NoMatch from "./pages/noMatch";
 
 class App extends Component {
+	componentDidMount() {
+		checkLoggedInStatus(this.props.id, this.props.setUserInfo);
+	}
+
 	render() {
 		return (
 			<div className="app">

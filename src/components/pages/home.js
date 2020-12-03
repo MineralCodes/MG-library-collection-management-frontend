@@ -6,6 +6,7 @@ import { apiUrl } from "../../config";
 
 import BookRecord from "../utils/record";
 import SearchBar from "../search/searchBar";
+import PageTitle from "../utils/pateTitle";
 
 class Home extends Component {
 	constructor() {
@@ -20,7 +21,6 @@ class Home extends Component {
 		axios
 			.get(`${apiUrl}/search/recent-titles`)
 			.then((resp) => {
-				console.log("get recent titles:", resp);
 				this.setState({
 					book_records: resp.data.books,
 				});
@@ -37,7 +37,7 @@ class Home extends Component {
 	render() {
 		return (
 			<div className="home">
-				<div className="home__title">Homepage</div>
+				<PageTitle className="home__title" title="Home" />
 				<SearchBar
 					className="home__search-bar"
 					history={this.props.history}

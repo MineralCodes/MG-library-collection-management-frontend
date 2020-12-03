@@ -1,0 +1,51 @@
+.book-record {
+	width: 150px;
+	display: grid;
+	grid-template-columns: [s] 1fr [e];
+	grid-template-rows: [s] 1fr [e];
+
+	&__cover,
+	&__info {
+		grid-row: s/e;
+		grid-column: s/e;
+	}
+
+	&__cover {
+		width: 150px;
+		height: 200px;
+	}
+
+	&__info {
+		color: $off-white;
+		padding: 10px;
+		width: 130px;
+		height: 180px;
+		visibility: hidden;
+
+		&__title {
+			font-size: 14px;
+			text-decoration: underline;
+		}
+		&__author {
+			font-size: 12px;
+		}
+		&__pub-year {
+			display: none;
+		}
+		&__description {
+			display: none;
+		}
+		&__isbn {
+			display: none;
+		}
+	}
+
+	&:hover &__cover {
+		filter: brightness(30%);
+	}
+
+	&:hover &__info {
+		visibility: visible;
+		z-index: 10;
+	}
+}

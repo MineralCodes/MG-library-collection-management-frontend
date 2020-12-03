@@ -9,7 +9,7 @@ import { checkLoggedInStatus } from "../../../functions/userFunctions";
 
 import { FormInput } from "./formFields";
 
-class SignIn extends Component {
+class SignUp extends Component {
 	constructor() {
 		super();
 
@@ -36,10 +36,11 @@ class SignIn extends Component {
 		});
 	}
 
-	componentDidMount() {
-		//checkLoggedInStatus(this.props.id, this.props.setUserInfo);
-		if (this.props.logged_in) {
-			this.props.history.push("/account");
+	componentDidUpdate(prevProps) {
+		if (this.props.logged_in != prevProps.logged_in) {
+			if (this.props.logged_in) {
+				this.props.history.push("/account");
+			}
 		}
 	}
 
@@ -129,6 +130,6 @@ function mapStateToProps(state) {
 	return { id, logged_in };
 }
 
-SignIn = connect(mapStateToProps, actions)(SignIn);
+SignUp = connect(mapStateToProps, actions)(SignUp);
 
-export default SignIn;
+export default SignUp;

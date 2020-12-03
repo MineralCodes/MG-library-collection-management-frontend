@@ -11,11 +11,6 @@ class NavBar extends Component {
 		super();
 	}
 
-	componentDidMount() {
-		console.log("nav component mounting", this.props.logged_in);
-		checkLoggedInStatus(this.props.id, this.props.setUserInfo);
-	}
-
 	render() {
 		return (
 			<div className="navigation">

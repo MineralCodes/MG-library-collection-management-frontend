@@ -65,15 +65,14 @@ class SignIn extends Component {
 			.catch((err) => {
 				console.log(err);
 			});
-		// event.preventDefault();
 	}
 
-	componentDidMount() {
-		console.log("signIn component mounting", this.props.logged_in);
-		//checkLoggedInStatus(this.props.id, this.props.setUserInfo);
-		if (this.props.logged_in) {
-			console.log(this.props.id);
-			this.props.history.push("/account");
+	componentDidUpdate(prevProps) {
+		if (this.props.logged_in != prevProps.logged_in) {
+			console.log("sign in logged in check", this.props.logged_in);
+			if (this.props.logged_in) {
+				this.props.history.push("/account");
+			}
 		}
 	}
 

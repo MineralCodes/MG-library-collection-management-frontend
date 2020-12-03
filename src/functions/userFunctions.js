@@ -4,9 +4,7 @@ import { apiUrl } from "../config";
 
 export function checkLoggedInStatus(userID, action) {
 	if (document.cookie.includes("token=")) {
-		console.log("cookie check true");
 		if (userID == 0) {
-			console.log("if", userID);
 			axios
 				.post(`${apiUrl}/auth/validate`, {}, { withCredentials: true })
 				.then((resp) => {
@@ -26,7 +24,6 @@ export function checkLoggedInStatus(userID, action) {
 			console.log("else", userID);
 		}
 	} else {
-		console.log("cookie check false");
 		const userObject = {
 			id: 0,
 			email: "",
