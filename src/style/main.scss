@@ -1,10 +1,13 @@
 @import "variables.scss";
 @import "mixins.scss";
+@import "helpers.scss";
 @import "base.scss";
+@import "headers.scss";
 @import "nav.scss";
-@import "./forms//buttons.scss";
+@import "./forms/buttons.scss";
 @import "./forms/form-input.scss";
 @import "./forms/book-form.scss";
+@import "search-bar.scss";
 @import "record.scss";
 
 //individual page styles

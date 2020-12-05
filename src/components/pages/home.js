@@ -7,6 +7,7 @@ import { apiUrl } from "../../config";
 import BookRecord from "../utils/record";
 import SearchBar from "../search/searchBar";
 import PageTitle from "../utils/pateTitle";
+import Spacer from "../utils/spacer";
 
 class Home extends Component {
 	constructor() {
@@ -38,10 +39,16 @@ class Home extends Component {
 		return (
 			<div className="home">
 				<PageTitle className="home__title" title="Home" />
+
+				<Spacer defaultSize="50" className="home__spacer" />
+
 				<SearchBar
 					className="home__search-bar"
 					history={this.props.history}
 				/>
+
+				<Spacer defaultSize="50" className="home__spacer" />
+
 				<div className="home__recent-titles">
 					{this.state.book_records.map((book) => {
 						return <BookRecord key={book.id} {...book} />;

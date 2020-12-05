@@ -3,3 +3,10 @@
 
 	display: grid;
 }
+
+@mixin page-layout() {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 1000px;
+}

@@ -5,7 +5,7 @@ html {
 body {
 	margin: 0;
 	padding: 0;
-	font-family: "Montserrat", sans-serif;
+	font-family: "Prompt", sans-serif;
 }
 
 .app {
@@ -13,6 +13,14 @@ body {
 	display: flex;
 	flex-direction: column;
 	justify-items: center;
+}
+
+.content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	padding-top: 20px;
 }
 
 a {
@@ -26,5 +34,17 @@ a {
 
 	&:visited {
 		color: inherit;
+	}
+}
+
+input {
+	border: none;
+	border-radius: 10px;
+	font-size: 14px;
+	height: 30px;
+	padding: 3px 10px 3px 10px;
+
+	&:focus {
+		box-shadow: inset 0px -2px 5px rgba(0, 0, 0, 0.5);
 	}
 }

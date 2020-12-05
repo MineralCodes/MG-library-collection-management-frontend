@@ -1,6 +1,6 @@
 .home {
-	grid-row: content-s/content-e;
-	grid-column: content-s/content-e;
+	@include page-layout();
+
 	&__recent-titles {
 		width: 800px;
 		height: 400px;

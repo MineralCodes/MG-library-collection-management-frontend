@@ -13,31 +13,39 @@ class NavBar extends Component {
 
 	render() {
 		return (
-			<div className="navigation">
-				<NavLink className="navbar__link" to="/">
-					Home
-				</NavLink>
-				<SearchBar className="navbar__search-bar" navBar={true} />
-				{this.props.logged_in ? (
-					<NavLink className="navbar__link" to="/account">
-						Account
+			<div className="navbar">
+				<div className="navbar__left navbar-section">
+					<NavLink className="navbar__link" to="/">
+						Home
 					</NavLink>
-				) : null}
-				{this.props.logged_in == false ? (
-					<NavLink className="navbar__link" to="/signin">
-						Sign In
-					</NavLink>
-				) : (
-					<LogoutLink
-						className="navbar__link"
-						history={this.props.history}
-					/>
-				)}
-				{this.props.user_role == "admin" ? (
-					<NavLink className="navbar__link" to="/book/create">
-						Create Record
-					</NavLink>
-				) : null}
+					{this.props.user_role == "admin" ? (
+						<NavLink className="navbar__link" to="/book/create">
+							Create Record
+						</NavLink>
+					) : null}
+				</div>
+
+				<div className="navbar__center navbar-section">
+					<SearchBar className="navbar__search-bar" navBar={true} />
+				</div>
+
+				<div className="navbar__right navbar-section">
+					{this.props.logged_in ? (
+						<NavLink className="navbar__link" to="/account">
+							Account
+						</NavLink>
+					) : null}
+					{this.props.logged_in == false ? (
+						<NavLink className="navbar__link" to="/signin">
+							Sign In
+						</NavLink>
+					) : (
+						<LogoutLink
+							className="navbar__link"
+							history={this.props.history}
+						/>
+					)}
+				</div>
 			</div>
 		);
 	}
