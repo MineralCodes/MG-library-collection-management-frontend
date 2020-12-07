@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import history from "../utils/history";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
+
 export default class SearchBar extends Component {
 	constructor(props) {
 		super(props);
@@ -43,7 +46,7 @@ export default class SearchBar extends Component {
 	}
 
 	render() {
-		const { className, navBar } = this.props;
+		const { className } = this.props;
 		return (
 			<div className={`${className} search-bar`}>
 				<input
@@ -55,15 +58,10 @@ export default class SearchBar extends Component {
 					onChange={this.handleChange}
 					onKeyPress={this.handleKeyPress}
 				/>
-				{!navBar ? (
-					<button
-						className="search-bar__submit"
-						type="button"
-						onClick={() => this.handleSubmit()}
-					>
-						Search
-					</button>
-				) : null}
+
+				<a onClick={this.handleSubmit} className="search-bar__icon">
+					<FontAwesomeIcon icon="search" />
+				</a>
 			</div>
 		);
 	}

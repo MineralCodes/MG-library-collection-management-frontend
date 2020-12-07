@@ -17,8 +17,15 @@ import Search from "./search/search";
 import Account from "./pages/account/account";
 import BookForm from "./pages/forms/bookForm";
 import NoMatch from "./pages/noMatch";
+import Icons from "./utils/icons";
 
 class App extends Component {
+	constructor() {
+		super();
+
+		Icons();
+	}
+
 	componentDidMount() {
 		checkLoggedInStatus(this.props.id, this.props.setUserInfo);
 	}
@@ -44,7 +51,7 @@ class App extends Component {
 						<Route component={NoMatch} />
 					</Switch>
 				</div>
-				<Footer />
+				{this.props.logged_in ? <Footer /> : null}
 			</div>
 		);
 	}

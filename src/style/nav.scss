@@ -3,19 +3,25 @@
 	height: 40px;
 	color: $off-white-one;
 	font-weight: 600;
-	font-size: 16px;
+	font-size: 1.6rem;
 
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	background-color: $blue-one;
 
+	&__search-bar {
+		width: 100%;
+		input {
+			height: 24px;
+		}
+	}
 	&__left,
 	&__center,
 	&__right {
 		display: flex;
 		flex-direction: row;
-		justify-items: center;
+		justify-content: center;
 		align-items: center;
 	}
 

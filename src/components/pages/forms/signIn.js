@@ -69,7 +69,6 @@ class SignIn extends Component {
 
 	componentDidUpdate(prevProps) {
 		if (this.props.logged_in != prevProps.logged_in) {
-			console.log("sign in logged in check", this.props.logged_in);
 			if (this.props.logged_in) {
 				this.props.history.push("/account");
 			}

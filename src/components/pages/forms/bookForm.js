@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { FormInput } from "./formFields";
+import { FormInput, FormButton } from "./formFields";
 import SelectField from "./selectField";
+import { SelectSearch } from "react-select-search";
 
 import { apiUrl } from "../../../config";
 
@@ -16,11 +17,41 @@ export default class BookForm extends Component {
 			description: "",
 			pubYear: "",
 			editMode: false,
+			authorList: [],
 		};
+
 		this.handleChange = this.handleChange.bind(this);
 		this.handleClear = this.handleClear.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.hydrateState = this.hydrateState.bind(this);
+		this.fetchAuthors = this.fetchAuthors.bind(this);
+	}
+
+	fetchAuthors() {
+		axios
+			.get(`${apiUrl}/author/getall`)
+			.then((resp) => {
+				this.setState({
+					authorList: resp.data.authors.map((author) => {
+						return { name: author.full_name, value: author.id };
+					}),
+				});
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}
+
+	sortValues(key, order = "asc") {
+		return function innerSort(a, b) {
+			if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+				return 0;
+			}
+
+			const comparison = a[key].localeCompare(b[key]);
+
+			return order === "desc" ? comparison * -1 : comparison;
+		};
 	}
 
 	handleChange(event) {
@@ -69,18 +100,20 @@ export default class BookForm extends Component {
 	}
 
 	componentDidMount() {
-		const { id, editMode } = this.props.location.state;
+		if (this.props.location.state) {
+			const { id, editMode } = this.props.location.state;
 
-		if (id) {
-			axios
-				.get(`${apiUrl}/book/${id}`)
-				.then((resp) => {
-					console.log(resp);
-					this.setState({ ...resp.data.books[0], editMode });
-				})
-				.catch((err) => {
-					console.log("book form mount error", err);
-				});
+			if (id) {
+				axios
+					.get(`${apiUrl}/book/${id}`)
+					.then((resp) => {
+						console.log(resp);
+						this.setState({ ...resp.data.books[0], editMode });
+					})
+					.catch((err) => {
+						console.log("book form mount error", err);
+					});
+			}
 		}
 	}
 
@@ -97,13 +130,21 @@ export default class BookForm extends Component {
 					value={this.state.title}
 				/>
 
-				<SelectField
+				{/* <SelectField
 					placeholder="Search for author"
 					name="author"
 					title="Book Author"
 					className="book-form__author"
 					handleChange={this.handleChange}
-				/>
+				/> */}
+				{/* <SelectSearch
+					name="author"
+					options={this.state.options}
+					value={this.state.author}
+					className="book-form__author"
+					search={true}
+					onChange={this.handleChange}
+				/> */}
 
 				<FormInput
 					title="ISBN"

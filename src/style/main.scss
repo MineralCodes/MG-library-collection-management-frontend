@@ -1,9 +1,13 @@
+//general styles pages
 @import "variables.scss";
 @import "mixins.scss";
 @import "helpers.scss";
 @import "base.scss";
 @import "headers.scss";
+
+//component styles
 @import "nav.scss";
+@import "footer.scss";
 @import "./forms/buttons.scss";
 @import "./forms/form-input.scss";
 @import "./forms/book-form.scss";
@@ -11,4 +15,4 @@
 @import "record.scss";
 
 //individual page styles
-@import "home.scss";
+@import "./pages/home.scss";

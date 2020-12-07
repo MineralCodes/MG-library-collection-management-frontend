@@ -15,15 +15,11 @@ class Footer extends Component {
 	render() {
 		return (
 			<div className="footer">
-				<div className="user">
-					{this.state.signedIn
-						? `Welcome! Signed in as ${this.props.email}`
-						: `Welcome!`}
+				<div className="footer__user">
+					{`Welcome! Signed in as ${this.props.email}`}
 				</div>
 				<div className="footer__account">
-					{this.state.signedIn ? (
-						<Link to="/account">Account</Link>
-					) : null}
+					<Link to="/account">View my account</Link>
 				</div>
 			</div>
 		);

@@ -26,7 +26,7 @@ class NavBar extends Component {
 				</div>
 
 				<div className="navbar__center navbar-section">
-					<SearchBar className="navbar__search-bar" navBar={true} />
+					<SearchBar className="navbar__search-bar" />
 				</div>
 
 				<div className="navbar__right navbar-section">

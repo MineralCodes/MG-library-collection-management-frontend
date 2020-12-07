@@ -6,6 +6,7 @@ body {
 	margin: 0;
 	padding: 0;
 	font-family: "Prompt", sans-serif;
+	color: $dark-grey-one;
 }
 
 .app {
@@ -34,17 +35,5 @@ a {
 
 	&:visited {
 		color: inherit;
-	}
-}
-
-input {
-	border: none;
-	border-radius: 10px;
-	font-size: 14px;
-	height: 30px;
-	padding: 3px 10px 3px 10px;
-
-	&:focus {
-		box-shadow: inset 0px -2px 5px rgba(0, 0, 0, 0.5);
 	}
 }

@@ -42,6 +42,18 @@ class Home extends Component {
 
 				<Spacer defaultSize="50" className="home__spacer" />
 
+				<div className="home__description">
+					<div>Welcome to the book catalog!</div>
+					<div>
+						This is currently just a base framework for bigger and
+						better things in the future. Feel free to browse the
+						current catalog, or sign up for an account to recieve
+						notifications for future features.
+					</div>
+				</div>
+
+				<Spacer defaultSize="50" className="home__spacer" />
+
 				<SearchBar
 					className="home__search-bar"
 					history={this.props.history}
@@ -50,9 +62,14 @@ class Home extends Component {
 				<Spacer defaultSize="50" className="home__spacer" />
 
 				<div className="home__recent-titles">
-					{this.state.book_records.map((book) => {
-						return <BookRecord key={book.id} {...book} />;
-					})}
+					<div className="home__recent-titles__title">
+						Recently Added Titles
+					</div>
+					<div className="home__recent-titles__records">
+						{this.state.book_records.map((book) => {
+							return <BookRecord key={book.id} {...book} />;
+						})}
+					</div>
 				</div>
 			</div>
 		);
