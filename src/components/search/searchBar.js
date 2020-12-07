@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import history from "../utils/history";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
 
 export default class SearchBar extends Component {
 	constructor(props) {

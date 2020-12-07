@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 
 import * as actions from "../../actions";
 
+import Spacer from "../utils/spacer";
+
 import { apiUrl } from "../../config";
 import SearchBar from "./searchBar";
 import Results from "./queryResults";
@@ -66,6 +68,9 @@ class Search extends Component {
 					query={this.props.match.params.search}
 					history={this.props.history}
 				/>
+
+				<Spacer defaultSize="50" className="search__spacer" />
+
 				<Results
 					className="search__results"
 					bookData={this.state.bookData}

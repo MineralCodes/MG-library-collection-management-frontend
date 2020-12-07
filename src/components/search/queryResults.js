@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import BookRecord from "../utils/record";
 
-export default class Results extends Component {
+class Results extends Component {
 	mapData(data = []) {
 		if (data.length >= 1) {
 			return data.map((record) => {
@@ -10,6 +10,7 @@ export default class Results extends Component {
 						key={record.id}
 						{...record}
 						className="books__record"
+						searchPage={true}
 					/>
 				);
 			});
@@ -39,3 +40,5 @@ export default class Results extends Component {
 		);
 	}
 }
+
+export default Results;

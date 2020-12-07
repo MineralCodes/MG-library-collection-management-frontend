@@ -1,7 +1,10 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
-export default class BookRecord extends Component {
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+class BookRecord extends Component {
 	render() {
 		const {
 			title,
@@ -10,9 +13,10 @@ export default class BookRecord extends Component {
 			isbn,
 			description,
 			id,
+			className,
 		} = this.props;
 
-		return (
+		const homePage = (
 			<Link to={`/detail/${id}`} className="book-record">
 				<img
 					src={`http://covers.openlibrary.org/b/isbn/${isbn}-M.jpg`}
@@ -28,5 +32,57 @@ export default class BookRecord extends Component {
 				</div>
 			</Link>
 		);
+
+		const searcResults = (
+			<div className={`search-record ${className}`}>
+				<Link to={`/detail/${id}`} className="search-record__cover">
+					<img
+						src={`http://covers.openlibrary.org/b/isbn/${isbn}-M.jpg`}
+						alt={`Title cover for ${title} by ${author}`}
+					/>
+				</Link>
+
+				<div className="search-record__info">
+					<div className="search-record__info__title">{title}</div>
+					<div className="search-record__info__author">{author}</div>
+					<div className="search-record__info__description">
+						{description}
+					</div>
+					<div className="search-record__info__pub-year">
+						{publication_year}
+					</div>
+				</div>
+
+				{this.props.logged_in ? (
+					<div className="search-record__buttons">
+						<Link
+							to={{
+								pathname: "/book/create",
+								state: { id: id, editMode: true },
+							}}
+						>
+							<FontAwesomeIcon
+								icon="edit"
+								className="edit-button search-record__button-edit"
+							/>
+						</Link>
+					</div>
+				) : null}
+			</div>
+		);
+
+		return (
+			<Fragment>
+				{this.props.searchPage ? searcResults : homePage}
+			</Fragment>
+		);
 	}
 }
+
+function mapStateToProps(state) {
+	const { logged_in } = state.user;
+	return { logged_in };
+}
+BookRecord = connect(mapStateToProps)(BookRecord);
+
+export default BookRecord;
