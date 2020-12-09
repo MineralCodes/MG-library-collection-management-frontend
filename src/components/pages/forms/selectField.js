@@ -4,19 +4,29 @@ import axios from "axios";
 import { apiUrl } from "../../../config";
 
 export default class SelectField extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 
 		this.state = {
 			authors: [],
 			filteredAuthors: [],
-			subjects: [],
 			searchTerm: "",
 			selectedAuthor: {},
 		};
 
 		this.fetchAuthors = this.fetchAuthors.bind(this);
-		this.findMatches = this.findMatches.bind(this);
+	}
+
+	sortValues(key, order = "asc") {
+		return function innerSort(a, b) {
+			if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+				return 0;
+			}
+
+			const comparison = a[key].localeCompare(b[key]);
+
+			return order === "desc" ? comparison * -1 : comparison;
+		};
 	}
 
 	fetchAuthors() {
@@ -35,56 +45,22 @@ export default class SelectField extends Component {
 			});
 	}
 
-	sortValues(key, order = "asc") {
-		return function innerSort(a, b) {
-			if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
-				return 0;
-			}
-
-			const comparison = a[key].localeCompare(b[key]);
-
-			return order === "desc" ? comparison * -1 : comparison;
-		};
-	}
-
-	findMatches(event) {
-		console.log(event.target.value);
-		this.setState({
-			filteredAuthors: this.state.authors.filter((item) => {
-				const regex = new RegExp(event.target.value, "gi");
-				return item.full_name.match(regex);
-			}),
-		});
-	}
-
 	componentDidMount() {
 		this.fetchAuthors();
 	}
 
 	render() {
-		const {
-			placeholder,
-			handleChange,
-			name,
-			title,
-			className,
-		} = this.props;
+		const { handleChange, name, title, className, authorId } = this.props;
 		return (
 			<div className={`select-field ${className}`}>
 				<label className={`select-field__label`}>{title}</label>
-				<input
-					className="select-field__input"
-					type="text"
-					placeholder={placeholder}
-					autoComplete="off"
-					onChange={this.findMatches}
-				/>
 				<select
 					className="select-field__select"
 					onChange={handleChange}
 					name={name}
-					size="5"
+					value={parseInt(authorId)}
 				>
+					<option value="0">Select author</option>
 					{this.state.filteredAuthors.map((author, key) => {
 						return (
 							<option

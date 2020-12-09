@@ -1,6 +1,6 @@
 .form-input {
 	display: grid;
-	grid-template-columns: [label-s] 200px [label-e input-s] 600px [input-e];
+	grid-template-columns: [label-s] 150px [label-e input-s] 400px [input-e];
 	grid-template-rows: 1fr;
 	grid-gap: 20px;
 	align-items: center;
@@ -11,15 +11,34 @@
 	}
 
 	&__input {
+		@include base-input();
 		grid-column: input-s/input-e;
-		width: 300px;
-		height: 30px;
+	}
+}
+
+.form-textarea {
+	display: grid;
+	grid-template-columns: [label-s] 150px [label-e input-s] 400px [input-e];
+	grid-template-rows: 1fr;
+	grid-gap: 20px;
+	align-items: center;
+
+	&__label {
+		grid-column: label-s/label-e;
+		font-size: 1.4rem;
+	}
+
+	&__textarea {
+		@include base-input();
+		grid-column: input-s/input-e;
+		height: 100px;
+		font-family: inherit;
 	}
 }
 
 .select-field {
 	display: grid;
-	grid-template-columns: [label-s] 200px [label-e input-s] 600px [input-e];
+	grid-template-columns: [label-s] 150px [label-e input-s] 400px [input-e];
 	grid-template-rows: 1fr;
 	grid-gap: 20px;
 	align-items: center;
@@ -29,15 +48,9 @@
 		font-size: 1.4rem;
 	}
 
-	&__input {
-		grid-column: input-s/input-e;
-		width: 300px;
-		height: 30px;
-	}
-
 	&__select {
+		@include base-input();
+		border-radius: 10px 0px 0px 10px;
 		grid-column: input-s/input-e;
-		width: 300px;
-		height: 100px;
 	}
 }

@@ -23,7 +23,6 @@ export default class BookDetails extends Component {
 		axios
 			.get(`${apiUrl}/book/${this.props.match.params.id}`)
 			.then((resp) => {
-				console.log("book detail response:", resp);
 				const bookData = resp.data.books[0];
 				this.setState({
 					...bookData,

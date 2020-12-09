@@ -29,6 +29,35 @@ export class FormInput extends Component {
 	}
 }
 
+export class FormTextArea extends Component {
+	render() {
+		const {
+			className,
+			title,
+			type,
+			placeholder,
+			value,
+			name,
+			handleChange,
+			handleKeyup,
+		} = this.props;
+		return (
+			<div className={`form-textarea ${className}`}>
+				<label className={`form-textarea__label`}>{title}</label>
+				<textarea
+					name={name}
+					className={`form-textarea__textarea`}
+					type={type}
+					placeholder={placeholder}
+					value={value}
+					onChange={handleChange}
+					onKeyUp={handleKeyup}
+				/>
+			</div>
+		);
+	}
+}
+
 export class FormButton extends Component {
 	render() {
 		const { className, title, type, onClick, disabled } = this.props;

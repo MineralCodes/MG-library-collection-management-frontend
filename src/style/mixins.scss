@@ -13,6 +13,7 @@
 
 @mixin base-input() {
 	border: 1px solid transparent;
+	border-bottom: 1px solid $light-grey-one;
 	outline: none;
 	border-radius: 10px;
 	font-size: 1.4rem;

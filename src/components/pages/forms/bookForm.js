@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { FormInput, FormButton } from "./formFields";
+import { FormInput, FormButton, FormTextArea } from "./formFields";
 import SelectField from "./selectField";
-import { SelectSearch } from "react-select-search";
 
 import { apiUrl } from "../../../config";
 
@@ -13,45 +12,18 @@ export default class BookForm extends Component {
 		this.state = {
 			title: "",
 			author: "",
+			author_id: 0,
 			isbn: "",
 			description: "",
-			pubYear: "",
+			publication_year: "",
 			editMode: false,
-			authorList: [],
 		};
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleClear = this.handleClear.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleDelete = this.handleDelete.bind(this);
 		this.hydrateState = this.hydrateState.bind(this);
-		this.fetchAuthors = this.fetchAuthors.bind(this);
-	}
-
-	fetchAuthors() {
-		axios
-			.get(`${apiUrl}/author/getall`)
-			.then((resp) => {
-				this.setState({
-					authorList: resp.data.authors.map((author) => {
-						return { name: author.full_name, value: author.id };
-					}),
-				});
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	}
-
-	sortValues(key, order = "asc") {
-		return function innerSort(a, b) {
-			if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
-				return 0;
-			}
-
-			const comparison = a[key].localeCompare(b[key]);
-
-			return order === "desc" ? comparison * -1 : comparison;
-		};
 	}
 
 	handleChange(event) {
@@ -63,7 +35,7 @@ export default class BookForm extends Component {
 	handleClear() {
 		this.setState({
 			title: "",
-			author: "",
+			author: 0,
 			isbn: "",
 			description: "",
 			pubYear: "",
@@ -76,21 +48,52 @@ export default class BookForm extends Component {
 		});
 	}
 
+	handleDelete() {
+		if (
+			confirm(
+				"Are you sure you want to delete this?\nThis cannot be un-done"
+			)
+		) {
+			axios
+				.delete(`${apiUrl}/book/delete/${this.state.id}`, {
+					withCredentials: true,
+				})
+				.then((resp) => {
+					if ((resp.status = 200)) {
+						this.props.history.push("/");
+					}
+				});
+		}
+	}
+
 	handleSubmit() {
+		let requestObject = {};
+
 		const formObject = {
 			form_input: {
 				title: this.state.title,
-				author: parseInt(this.state.author),
+				author: parseInt(this.state.author_id),
 				isbn: this.state.isbn,
 				description: this.state.description,
-				pub_year: parseInt(this.state.pubYear),
+				publication_year: parseInt(this.state.publication_year),
 			},
 		};
-
-		axios
-			.post(`${apiUrl}/book/create`, formObject, {
+		if (this.state.editMode) {
+			requestObject = {
+				method: "patch",
+				url: `${apiUrl}/book/update`,
+				data: formObject,
+			};
+		} else {
+			requestObject = {
+				method: "post",
+				url: `${apiUrl}/book/create`,
+				data: formObject,
 				withCredentials: true,
-			})
+			};
+		}
+
+		axios(requestObject)
 			.then((resp) => {
 				console.log(resp);
 			})
@@ -107,7 +110,6 @@ export default class BookForm extends Component {
 				axios
 					.get(`${apiUrl}/book/${id}`)
 					.then((resp) => {
-						console.log(resp);
 						this.setState({ ...resp.data.books[0], editMode });
 					})
 					.catch((err) => {
@@ -130,21 +132,14 @@ export default class BookForm extends Component {
 					value={this.state.title}
 				/>
 
-				{/* <SelectField
+				<SelectField
 					placeholder="Search for author"
-					name="author"
+					name="author_id"
 					title="Book Author"
 					className="book-form__author"
+					authorId={this.state.author_id}
 					handleChange={this.handleChange}
-				/> */}
-				{/* <SelectSearch
-					name="author"
-					options={this.state.options}
-					value={this.state.author}
-					className="book-form__author"
-					search={true}
-					onChange={this.handleChange}
-				/> */}
+				/>
 
 				<FormInput
 					title="ISBN"
@@ -156,8 +151,8 @@ export default class BookForm extends Component {
 					value={this.state.isbn}
 				/>
 
-				<FormInput
-					title="description"
+				<FormTextArea
+					title="Description"
 					name="description"
 					type="textarea"
 					placeholder="Enter description here"
@@ -168,26 +163,47 @@ export default class BookForm extends Component {
 
 				<FormInput
 					title="Publication Year"
-					name="pubYear"
+					name="publication_year"
 					type="text"
 					placeholder="Pub Year"
-					className="book-form__isbn"
+					className="book-form__publication_year"
 					handleChange={this.handleChange}
-					value={this.state.pubYear}
+					value={this.state.publication_year}
 				/>
 
-				<FormButton
-					className="book-form__cancel"
-					type="button"
-					onClick={this.handleClear}
-					title="Cancel"
-				/>
-				<FormButton
-					className="book-form__submit"
-					type="button"
-					onClick={this.handleSubmit}
-					title="Submit"
-				/>
+				<div className="book-form__buttons">
+					<FormButton
+						className="book-form__buttons__cancel"
+						type="button"
+						onClick={
+							this.state.editMode
+								? () =>
+										this.props.history.push(
+											`/detail/${this.state.id}`
+										)
+								: this.handleClear
+						}
+						title="Cancel"
+					/>
+					<FormButton
+						className="book-form__buttons__submit"
+						type="button"
+						onClick={this.handleSubmit}
+						title={
+							this.state.editMode
+								? "Submit Changes"
+								: "Create Record"
+						}
+					/>
+					{this.state.editMode ? (
+						<FormButton
+							className="book-form__buttons__delete delete"
+							type="button"
+							onClick={this.handleDelete}
+							title="Delete Record"
+						/>
+					) : null}
+				</div>
 			</form>
 		);
 	}
