@@ -6,9 +6,9 @@ import { connect } from "react-redux";
 import * as actions from "../../../actions";
 
 import { apiUrl } from "../../../config";
-import { checkLoggedInStatus } from "../../../functions/userFunctions";
 
-import { FormInput } from "./formFields";
+import { FormInput, FormButton } from "./formFields";
+import StatusMessage from "../../utils/statusMessage";
 
 class SignIn extends Component {
 	constructor() {
@@ -17,6 +17,7 @@ class SignIn extends Component {
 		this.state = {
 			email: "",
 			password: "",
+			statusMessage: "",
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -38,33 +39,39 @@ class SignIn extends Component {
 	}
 
 	handleSubmit() {
-		axios
-			.post(
-				`${apiUrl}/auth/login`,
-				{
-					email: this.state.email,
-					password: this.state.password,
-				},
-				{ withCredentials: true }
-			)
-			.then((resp) => {
-				if ((resp.status = 200)) {
-					console.log("response", resp);
-					this.props.setUserInfo({
-						...resp.data.user,
-						logged_in: true,
+		if (this.state.email != "") {
+			if (this.state.password != "") {
+				axios
+					.post(
+						`${apiUrl}/auth/login`,
+						{
+							email: this.state.email,
+							password: this.state.password,
+						},
+						{ withCredentials: true }
+					)
+					.then((resp) => {
+						if ((resp.status = 200)) {
+							this.props.setUserInfo({
+								...resp.data.user,
+								logged_in: true,
+							});
+							this.props.history.push("/account");
+						} else if ((resp.status = 401) || (resp.status = 404)) {
+							this.setState({
+								statusMessage: "Invalid username or password",
+							});
+						}
+					})
+					.catch((err) => {
+						console.log(err);
 					});
-					this.props.history.push("/account");
-					return resp;
-				} else if ((resp.status = 401)) {
-					return "Invalid password";
-				} else if ((resp.status = 404)) {
-					return "Invalid email";
-				}
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+			} else {
+				this.setState({ statusMessage: "Please enter a password" });
+			}
+		} else {
+			this.setState({ statusMessage: "Please enter an email address" });
+		}
 	}
 
 	componentDidUpdate(prevProps) {
@@ -78,7 +85,7 @@ class SignIn extends Component {
 	render() {
 		return (
 			<div className="sign-in">
-				<form className="sign-in__form" method="POST">
+				<form className="sign-in__form">
 					<FormInput
 						title="Email"
 						name="email"
@@ -99,20 +106,25 @@ class SignIn extends Component {
 						value={this.state.password}
 					/>
 
-					<button
-						type="reset"
-						className="sign-in__form__cancel"
-						onClick={this.clearForm}
-					>
-						Cancel
-					</button>
-					<button
-						type="button"
-						className="sign-in__form__submit"
-						onClick={this.handleSubmit}
-					>
-						Login
-					</button>
+					<StatusMessage
+						className="sign-in-form__status-message"
+						status={this.state.statusMessage}
+					/>
+
+					<div className="sign-in-form__buttons">
+						<FormButton
+							type="button"
+							className="sign-in-form__buttons__cancel"
+							onClick={this.clearForm}
+							title="Cancel"
+						/>
+						<FormButton
+							type="button"
+							className="sign-in-form__buttons__submit"
+							onClick={this.handleSubmit}
+							title="Submit"
+						/>
+					</div>
 				</form>
 				<div className="no-account">
 					Don't have an account?{" "}

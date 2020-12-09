@@ -4,6 +4,7 @@ import { FormInput, FormButton, FormTextArea } from "./formFields";
 import SelectField from "./selectField";
 
 import { apiUrl } from "../../../config";
+import StatusMessage from "../../utils/statusMessage";
 
 export default class BookForm extends Component {
 	constructor() {
@@ -17,6 +18,7 @@ export default class BookForm extends Component {
 			description: "",
 			publication_year: "",
 			editMode: false,
+			statusMessage: "",
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -78,6 +80,7 @@ export default class BookForm extends Component {
 				publication_year: parseInt(this.state.publication_year),
 			},
 		};
+
 		if (this.state.editMode) {
 			requestObject = {
 				method: "patch",
@@ -93,13 +96,24 @@ export default class BookForm extends Component {
 			};
 		}
 
-		axios(requestObject)
-			.then((resp) => {
-				console.log(resp);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		if (this.state.title != "") {
+			if (this.state.author_id != 0) {
+				axios(requestObject)
+					.then((resp) => {
+						this.props.history.push("/");
+					})
+					.catch((err) => {
+						this.setState({
+							statusMessage: "There was an unknown server error",
+						});
+						console.log(err);
+					});
+			} else {
+				this.setState({ statusMessage: "Please select an author" });
+			}
+		} else {
+			this.setState({ statusMessage: "Book title cannot be blank" });
+		}
 	}
 
 	componentDidMount() {
@@ -145,6 +159,7 @@ export default class BookForm extends Component {
 					title="ISBN"
 					name="isbn"
 					type="text"
+					maxLength={13}
 					placeholder="Enter ISBN"
 					className="book-form__isbn"
 					handleChange={this.handleChange}
@@ -165,10 +180,16 @@ export default class BookForm extends Component {
 					title="Publication Year"
 					name="publication_year"
 					type="text"
+					maxLength={4}
 					placeholder="Pub Year"
 					className="book-form__publication_year"
 					handleChange={this.handleChange}
 					value={this.state.publication_year}
+				/>
+
+				<StatusMessage
+					className="book-form__status-message"
+					status={this.state.statusMessage}
 				/>
 
 				<div className="book-form__buttons">

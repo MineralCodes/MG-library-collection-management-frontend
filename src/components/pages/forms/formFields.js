@@ -9,6 +9,7 @@ export class FormInput extends Component {
 			placeholder,
 			value,
 			name,
+			maxLength,
 			handleChange,
 			handleKeyup,
 		} = this.props;
@@ -23,6 +24,7 @@ export class FormInput extends Component {
 					value={value}
 					onChange={handleChange}
 					onKeyUp={handleKeyup}
+					maxLength={maxLength}
 				/>
 			</div>
 		);

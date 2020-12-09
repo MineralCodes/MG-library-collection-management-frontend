@@ -1,0 +1,74 @@
+.account {
+	@include page-layout();
+
+	&__intro {
+		font-size: 1.2rem;
+		margin-bottom: 15px;
+	}
+
+	&__info {
+		margin-bottom: 50px;
+		width: 600px;
+		&__title {
+			font-size: 1.6rem;
+			font-weight: 600;
+			text-align: left;
+		}
+
+		&__user-details {
+			font-size: 1.4rem;
+		}
+	}
+
+	&__password {
+		width: 600px;
+	}
+}
+
+.account__password {
+	&__title {
+		grid-column: s/e;
+		grid-row: title-s/title-e;
+		font-size: 1.6rem;
+		font-weight: 600;
+		margin-bottom: 30px;
+	}
+
+	.update-password {
+		display: grid;
+		grid-gap: 10px;
+		align-items: center;
+		grid-template-columns: [s] 1fr [e];
+		grid-template-rows: [current-s] 40px [current-e new-s] 40px [new-e confirm-s] 40px [confirm-e status-s] 40px [status-e space-s] 20px [space-e buttons-s] 40px [buttons-e];
+
+		&__current {
+			grid-column: s/e;
+			grid-row: current-s/current-e;
+		}
+
+		&__new {
+			grid-column: s/e;
+			grid-row: new-s/new-e;
+		}
+
+		&__confirm {
+			grid-column: s/e;
+			grid-row: confirm-s/confirm-e;
+		}
+
+		&__status-message {
+			grid-column: s/e;
+			grid-row: status-s/status-e;
+		}
+
+		&__buttons {
+			grid-column: s/e;
+			grid-row: buttons-s/buttons-e;
+			display: flex;
+
+			.form-button {
+				margin-right: 15px;
+			}
+		}
+	}
+}

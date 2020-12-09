@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
 
 import { apiUrl } from "../../../config";
-import { checkLoggedInStatus } from "../../../functions/userFunctions";
 
-import { FormInput } from "./formFields";
+import { FormButton, FormInput } from "./formFields";
+import StatusMessage from "../../utils/statusMessage";
 
 class SignUp extends Component {
 	constructor() {
@@ -16,6 +17,7 @@ class SignUp extends Component {
 		this.state = {
 			email: "",
 			password: "",
+			statusMessage: "",
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -33,6 +35,7 @@ class SignUp extends Component {
 		this.setState({
 			email: "",
 			password: "",
+			statusMessage: "",
 		});
 	}
 
@@ -44,41 +47,57 @@ class SignUp extends Component {
 		}
 	}
 
-	handleSubmit(event) {
-		axios
-			.post(
-				`${apiUrl}/auth/register`,
-				{
-					email: this.state.email,
-					password: this.state.password,
-					confirm_password: this.state.confirm,
-				},
-				{ withCredentials: true }
-			)
-			.then((resp) => {
-				if (resp.status == 200) {
-					this.props.setUserInfo(resp.data);
-					this.props.history.push("/account");
-					return resp;
-				} else if (resp.status == 409) {
-					console.log(resp);
-					return resp;
+	handleSubmit() {
+		if (this.state.email != "") {
+			if (this.state.password != "") {
+				if (this.state.password == this.state.confirm) {
+					axios
+						.post(
+							`${apiUrl}/auth/register`,
+							{
+								email: this.state.email,
+								password: this.state.password,
+								confirm_password: this.state.confirm,
+							},
+							{ withCredentials: true }
+						)
+						.then((resp) => {
+							if (resp.status == 200) {
+								this.props.setUserInfo({
+									...resp.data.user,
+									logged_in: true,
+								});
+								this.props.history.push("/account");
+								return resp;
+							} else if (resp.status == 409) {
+								this.setState({
+									statusMessage:
+										"Could not create user account",
+								});
+							}
+						})
+						.catch((err) => {
+							this.setState({
+								statusMessage:
+									"There was an unknown server error",
+							});
+							console.log(err);
+						});
+				} else {
+					this.setState({ statusMessage: "Password do not match" });
 				}
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-		event.preventDefault();
+			} else {
+				this.setState({ statusMessage: "Please enter a password" });
+			}
+		} else {
+			this.setState({ statusMessage: "Please enter an email" });
+		}
 	}
 
 	render() {
 		return (
 			<div className="sign-up">
-				<form
-					className="sign-up__form"
-					onSubmit={this.handleSubmit}
-					method="POST"
-				>
+				<form className="sign-up__form">
 					<FormInput
 						title="Email"
 						name="email"
@@ -109,17 +128,30 @@ class SignUp extends Component {
 						value={this.state.confirm}
 					/>
 
-					<button
-						type="reset"
-						className="sign-up__form__cancel"
-						onClick={this.clearForm}
-					>
-						Cancel
-					</button>
-					<button type="submit" className="sign-up__form__submit">
-						Login
-					</button>
+					<StatusMessage
+						className="sign-up__form__status-message"
+						status={this.state.statusMessage}
+					/>
+
+					<div className="sign-up__form__buttons">
+						<FormButton
+							type="button"
+							className="sign-up__form__buttons__cancel"
+							onClick={this.clearForm}
+							title="Cancel"
+						/>
+						<FormButton
+							type="button"
+							className="sign-up__form__buttons__submit"
+							onClick={this.handleSubmit}
+							title="Submit"
+						/>
+					</div>
 				</form>
+				<div className="have-account">
+					Already have an account?{" "}
+					<Link to="/signin">Sign In Here</Link>
+				</div>
 			</div>
 		);
 	}

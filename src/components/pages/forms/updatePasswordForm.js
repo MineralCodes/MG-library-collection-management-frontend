@@ -49,50 +49,63 @@ class UpdatePasswordForm extends Component {
 			new_password: this.state.newPassword,
 			confirm_password: this.state.confirmPassword,
 		};
-		if (this.state.newPassword == this.state.confirmPassword) {
-			axios
-				.post(`${apiUrl}/auth/update-password`, formObject, {
-					withCredentials: true,
-				})
-				.then((resp) => {
-					if ((resp.status = 200)) {
-						this.setState({
-							statusMessage: "Password updated",
+		if (this.state.currentPassword != "") {
+			if (this.state.newPassword != "") {
+				if (this.state.newPassword == this.state.confirmPassword) {
+					axios
+						.post(`${apiUrl}/auth/update-password`, formObject, {
+							withCredentials: true,
+						})
+						.then((resp) => {
+							if ((resp.status = 200)) {
+								this.setState({
+									statusMessage: "Password updated",
+								});
+							} else if ((resp.status = 406)) {
+								this.setState({
+									statusMessage:
+										"New password and confirm password must match",
+								});
+							} else if ((resp.status = 401)) {
+								this.setState({
+									statusMessage:
+										"Current password not valid please try again",
+								});
+							} else if ((resp.status = 404)) {
+								this.setState({
+									statusMessage:
+										"Server could not find you user account",
+								});
+							} else {
+								this.setState({
+									statusMessage:
+										"Unknown server error, please try again or contact systems administrator",
+								});
+							}
+							return resp;
+						})
+						.catch((err) => {
+							this.setState({
+								statusMessage:
+									"There was an unknown server error, please contact the systems adiminstrator",
+							});
+							console.log("update password error", err);
+							return err;
 						});
-					} else if ((resp.status = 406)) {
-						this.setState({
-							statusMessage:
-								"New password and confirm password must match",
-						});
-					} else if ((resp.status = 401)) {
-						this.setState({
-							statusMessage:
-								"Current password not valid please try again",
-						});
-					} else if ((resp.status = 404)) {
-						this.setState({
-							statusMessage:
-								"Server could not find you user account",
-						});
-					} else {
-						this.setState({
-							statusMessage:
-								"Unknown server error, please try again or contact systems administrator",
-						});
-					}
-					return resp;
-				})
-				.catch((err) => {
+				} else {
 					this.setState({
 						statusMessage:
-							"There was an unknown server error, please contact the systems adiminstrator",
+							"New password and confirm password must match",
 					});
-					console.log("update password error", err);
-					return err;
+				}
+			} else {
+				this.setState({
+					statusMessage: "New password cannot be left blank",
 				});
+			}
 		} else {
 			this.setState({
-				statusMessage: "New password and confirm password must match",
+				statusMessage: "Current password cannot be left blank",
 			});
 		}
 	}
@@ -147,18 +160,20 @@ class UpdatePasswordForm extends Component {
 					className="update-password__status-message"
 				/>
 
-				<FormButton
-					className="update-password__cancel"
-					type="button"
-					onClick={this.handleClear}
-					title="Cancel"
-				/>
-				<FormButton
-					className="update-password__submit"
-					type="button"
-					onClick={this.handleSubmit}
-					title="Submit Changes"
-				/>
+				<div className="update-password__buttons">
+					<FormButton
+						className="update-password__cancel"
+						type="button"
+						onClick={this.handleClear}
+						title="Cancel"
+					/>
+					<FormButton
+						className="update-password__submit"
+						type="button"
+						onClick={this.handleSubmit}
+						title="Submit Changes"
+					/>
+				</div>
 			</form>
 		);
 	}

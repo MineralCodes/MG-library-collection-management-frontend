@@ -40,7 +40,6 @@ class App extends Component {
 						<Route path="/signin" component={SignIn} />
 						<Route path="/signup" component={SignUp} />
 						<Route path="/search/:search" component={Search} />
-						<Route path="/results" component={Results} />
 						<Route path="/detail/:id" component={BookDetail} />
 						{this.props.user_role == "admin" ? (
 							<Route path="/book/create" component={BookForm} />
