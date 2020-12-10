@@ -1,0 +1,42 @@
+@media (max-width: 600px) {
+	.navbar {
+		flex-direction: column;
+		height: auto;
+		padding: 10px;
+
+		&__left,
+		&__center,
+		&__right {
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+
+		&__center {
+			order: 3;
+		}
+
+		&__right {
+			order: 2;
+		}
+	}
+
+	.home__recent-titles {
+		&__records {
+			grid-template-columns: 1fr 1fr 1fr;
+
+			.book-record {
+				width: 100px;
+
+				&__cover {
+					width: 100px;
+					height: 150px;
+				}
+				.book-record__info {
+					width: 100%;
+					height: 100%;
+				}
+			}
+		}
+	}
+}

@@ -14,22 +14,16 @@ class LogoutLink extends Component {
 			user_role: "guest",
 			logged_in: false,
 		};
-
-		if (document.cookie.includes("token=")) {
-			axios
-				.post(`${apiUrl}/auth/logout`, {}, { withCredentials: true })
-				.then((resp) => {
-					console.log(resp);
-					setInfo(clearUser);
-					history.push("/");
-				})
-				.catch((err) => {
-					console.log(err);
-				});
-		} else {
-			console.log("no cookie");
-			setInfo(clearUser);
-		}
+		axios
+			.post(`${apiUrl}/auth/logout`, {}, { withCredentials: true })
+			.then((resp) => {
+				setInfo(clearUser);
+				history.push("/");
+				return resp;
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	}
 
 	render() {

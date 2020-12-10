@@ -14,7 +14,8 @@
 		align-items: center;
 		flex-direction: column;
 		justify-content: center;
-		width: 800px;
+		width: 100%;
+		max-width: 600px;
 		min-height: 400px;
 
 		&__title {
@@ -25,7 +26,6 @@
 		&__records {
 			display: grid;
 			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-			grid-gap: 15px;
 		}
 	}
 }
