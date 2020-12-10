@@ -9,6 +9,7 @@ import { apiUrl } from "../../../config";
 
 import { FormInput, FormButton } from "./formFields";
 import StatusMessage from "../../utils/statusMessage";
+import PageTitle from "../../utils/pageTitle";
 
 class SignIn extends Component {
 	constructor() {
@@ -85,6 +86,7 @@ class SignIn extends Component {
 	render() {
 		return (
 			<div className="sign-in">
+				<PageTitle className="sign-in__title" title="Sign In" />
 				<form className="sign-in__form">
 					<FormInput
 						title="Email"
@@ -107,27 +109,27 @@ class SignIn extends Component {
 					/>
 
 					<StatusMessage
-						className="sign-in-form__status-message"
+						className="sign-in__form__status-message"
 						status={this.state.statusMessage}
 					/>
 
-					<div className="sign-in-form__buttons">
+					<div className="sign-in__form__buttons">
 						<FormButton
 							type="button"
-							className="sign-in-form__buttons__cancel"
+							className="sign-in__form__buttons__cancel"
 							onClick={this.clearForm}
 							title="Cancel"
 						/>
 						<FormButton
 							type="button"
-							className="sign-in-form__buttons__submit"
+							className="sign-in__form__buttons__submit"
 							onClick={this.handleSubmit}
 							title="Submit"
 						/>
 					</div>
 				</form>
-				<div className="no-account">
-					Don't have an account?{" "}
+				<div className="sign-in__no-account">
+					<div>Don't have an account?</div>
 					<Link to="/signup">Sign Up Here</Link>
 				</div>
 			</div>

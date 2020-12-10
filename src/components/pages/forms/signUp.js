@@ -114,7 +114,7 @@ class SignUp extends Component {
 						title="Password"
 						name="password"
 						type="password"
-						placeholder="enter passwrod"
+						placeholder="Enter passwrod"
 						className="sign-up__form__password"
 						handleChange={this.handleChange}
 						value={this.state.password}
@@ -124,7 +124,7 @@ class SignUp extends Component {
 						title="Confirm Password"
 						name="confirm"
 						type="password"
-						placeholder="confirm passwrod"
+						placeholder="Confirm passwrod"
 						className="sign-up__form__confirm"
 						handleChange={this.handleChange}
 						value={this.state.confirm}
@@ -150,8 +150,8 @@ class SignUp extends Component {
 						/>
 					</div>
 				</form>
-				<div className="have-account">
-					Already have an account?{" "}
+				<div className="sign-up__have-account">
+					<div>Already have an account?</div>
 					<Link to="/signin">Sign In Here</Link>
 				</div>
 			</div>

@@ -1,0 +1,61 @@
+.sign-up {
+	width: 800px;
+	display: grid;
+	grid-template-columns: [form-s] 1fr [form-e sign-in-s] 100px [sign-in-e];
+	grid-template-rows: [title-s] 50px [title-e form-s] 1fr [form-e];
+
+	&__title {
+		grid-column: 1/-1;
+		grid-row: title-s/title-e;
+	}
+
+	&__form {
+		grid-column: form-s/form-e;
+		grid-row: form-s/form-e;
+	}
+
+	&__have-account {
+		grid-column: sign-in-s/sign-in-e;
+		font-size: 1.4rem;
+
+		a {
+			font-size: 1.2rem;
+		}
+	}
+}
+
+.sign-up__form {
+	display: grid;
+	grid-template-columns: [s] 1fr [e];
+	grid-template-rows: [email-s] 40px [email-e password-s] 40px [password-e confirm-s] 40px [confirm-e status-s] 40px [status-e buttons-s] 40px [buttons-e];
+
+	&__email {
+		grid-column: s/e;
+		grid-row: email-s/email-e;
+	}
+
+	&__password {
+		grid-column: s/e;
+		grid-row: password-s/password-e;
+	}
+
+	&__confirm {
+		grid-column: s/e;
+		grid-row: confirm-s/confirm-e;
+	}
+
+	&__status-message {
+		grid-column: s/e;
+		grid-row: status-s/status-e;
+	}
+
+	&__buttons {
+		grid-column: s/e;
+		grid-row: buttons-s/buttons-e;
+		display: flex;
+
+		.form-button {
+			margin-right: 10px;
+		}
+	}
+}
