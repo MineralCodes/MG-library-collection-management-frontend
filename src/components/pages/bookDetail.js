@@ -3,6 +3,11 @@ import axios from "axios";
 
 import { apiUrl } from "../../config";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import PageTitle from "../utils/pageTitle";
+import Spacer from "../utils/spacer";
+import CoverImage from "../utils/coverImg";
 
 export default class BookDetails extends Component {
 	constructor(props) {
@@ -35,31 +40,47 @@ export default class BookDetails extends Component {
 
 	render() {
 		return (
-			<div className="bookDetail">
-				<img
-					src={`http://covers.openlibrary.org/b/isbn/${this.state.isbn}-L.jpg`}
+			<div className="book-detail">
+				<PageTitle
+					className="book-detail__title"
+					title={`Record details for ${this.state.title}`}
+				/>
+
+				<CoverImage
 					alt={`Title cover for ${this.state.title} by ${this.state.author}`}
 					className="book-detail__cover"
+					isbn={this.state.isbn}
+					size="L"
 				/>
-				<div className="book-detail__title">{this.state.title}</div>
-				<div className="book-detail__author">{this.state.author}</div>
-				<div className="book-detail__pub-year">
-					{this.state.publication_year}
-				</div>
-				<div className="book-detail__description">
-					{this.state.description}
-				</div>
-				<div className="book-detail__isbn">{this.state.isbn}</div>
-				<div className="book-detail__isbn">{this.state.date_added}</div>
-				<div className="book-detail__edit-buttons">
-					<Link
-						to={{
-							pathname: "/book/create",
-							state: { id: this.state.id, editMode: true },
-						}}
-					>
-						Edit
-					</Link>
+				<div className="book-detail__info">
+					<div className="book-detail__info__title">
+						{this.state.title}
+					</div>
+					<div className="book-detail__info__author">
+						{`By: ${this.state.author}`}
+					</div>
+					<div className="book-detail__info__pub-year">
+						{`(${this.state.publication_year})`}
+					</div>
+					<div className="book-detail__info__description">
+						{this.state.description}
+					</div>
+					<div className="book-detail__info__isbn">
+						{`ISBN: ${this.state.isbn}`}
+					</div>
+					<div className="book-detail__info__date">
+						{`Date Added: ${this.state.date_added}`}
+					</div>
+					<div className="book-detail__info__edit-button">
+						<Link
+							to={{
+								pathname: "/book/create",
+								state: { id: this.state.id, editMode: true },
+							}}
+						>
+							<FontAwesomeIcon icon="edit" />
+						</Link>
+					</div>
 				</div>
 			</div>
 		);

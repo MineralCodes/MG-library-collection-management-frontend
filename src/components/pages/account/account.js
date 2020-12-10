@@ -4,7 +4,7 @@ import * as actions from "../../../actions";
 
 import UpdatePasswordForm from "../forms/updatePasswordForm";
 import UserDetails from "./userDetails";
-import PageTitle from "../../utils/pateTitle";
+import PageTitle from "../../utils/pageTitle";
 import Spacer from "../../utils/spacer";
 
 class Account extends Component {

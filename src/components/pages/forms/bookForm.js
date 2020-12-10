@@ -4,7 +4,9 @@ import { FormInput, FormButton, FormTextArea } from "./formFields";
 import SelectField from "./selectField";
 
 import { apiUrl } from "../../../config";
+import PageTitle from "../../utils/pageTitle";
 import StatusMessage from "../../utils/statusMessage";
+import Spacer from "../../utils/spacer";
 
 export default class BookForm extends Component {
 	constructor() {
@@ -71,23 +73,35 @@ export default class BookForm extends Component {
 	handleSubmit() {
 		let requestObject = {};
 
-		const formObject = {
-			form_input: {
-				title: this.state.title,
-				author: parseInt(this.state.author_id),
-				isbn: this.state.isbn,
-				description: this.state.description,
-				publication_year: parseInt(this.state.publication_year),
-			},
-		};
-
 		if (this.state.editMode) {
+			const formObject = {
+				form_input: {
+					book_id: this.state.id,
+					title: this.state.title,
+					author: parseInt(this.state.author_id),
+					isbn: this.state.isbn,
+					description: this.state.description,
+					publication_year: parseInt(this.state.publication_year),
+				},
+			};
+
 			requestObject = {
 				method: "patch",
 				url: `${apiUrl}/book/update`,
 				data: formObject,
+				withCredentials: true,
 			};
 		} else {
+			const formObject = {
+				form_input: {
+					title: this.state.title,
+					author: parseInt(this.state.author_id),
+					isbn: this.state.isbn,
+					description: this.state.description,
+					publication_year: parseInt(this.state.publication_year),
+				},
+			};
+
 			requestObject = {
 				method: "post",
 				url: `${apiUrl}/book/create`,
@@ -135,97 +149,106 @@ export default class BookForm extends Component {
 
 	render() {
 		return (
-			<form className="book-form">
-				<FormInput
-					title="Book Title"
-					name="title"
-					type="text"
-					placeholder="Enter Book Title"
+			<div className="book-form">
+				<PageTitle
 					className="book-form__title"
-					handleChange={this.handleChange}
-					value={this.state.title}
+					title={
+						this.state.editMode ? "Update Record" : "Create Record"
+					}
 				/>
-
-				<SelectField
-					placeholder="Search for author"
-					name="author_id"
-					title="Book Author"
-					className="book-form__author"
-					authorId={this.state.author_id}
-					handleChange={this.handleChange}
-				/>
-
-				<FormInput
-					title="ISBN"
-					name="isbn"
-					type="text"
-					maxLength={13}
-					placeholder="Enter ISBN"
-					className="book-form__isbn"
-					handleChange={this.handleChange}
-					value={this.state.isbn}
-				/>
-
-				<FormTextArea
-					title="Description"
-					name="description"
-					type="textarea"
-					placeholder="Enter description here"
-					className="book-form__description"
-					handleChange={this.handleChange}
-					value={this.state.description}
-				/>
-
-				<FormInput
-					title="Publication Year"
-					name="publication_year"
-					type="text"
-					maxLength={4}
-					placeholder="Pub Year"
-					className="book-form__publication_year"
-					handleChange={this.handleChange}
-					value={this.state.publication_year}
-				/>
-
-				<StatusMessage
-					className="book-form__status-message"
-					status={this.state.statusMessage}
-				/>
-
-				<div className="book-form__buttons">
-					<FormButton
-						className="book-form__buttons__cancel"
-						type="button"
-						onClick={
-							this.state.editMode
-								? () =>
-										this.props.history.push(
-											`/detail/${this.state.id}`
-										)
-								: this.handleClear
-						}
-						title="Cancel"
+				<Spacer defaultSize="50" />
+				<form className="book-form__form">
+					<FormInput
+						title="Book Title"
+						name="title"
+						type="text"
+						placeholder="Enter Book Title"
+						className="book-form__form__title"
+						handleChange={this.handleChange}
+						value={this.state.title}
 					/>
-					<FormButton
-						className="book-form__buttons__submit"
-						type="button"
-						onClick={this.handleSubmit}
-						title={
-							this.state.editMode
-								? "Submit Changes"
-								: "Create Record"
-						}
+
+					<SelectField
+						placeholder="Search for author"
+						name="author_id"
+						title="Book Author"
+						className="book-form__form__author"
+						authorId={this.state.author_id}
+						handleChange={this.handleChange}
 					/>
-					{this.state.editMode ? (
+
+					<FormInput
+						title="ISBN"
+						name="isbn"
+						type="text"
+						maxLength={13}
+						placeholder="Enter ISBN"
+						className="book-form__form__isbn"
+						handleChange={this.handleChange}
+						value={this.state.isbn}
+					/>
+
+					<FormTextArea
+						title="Description"
+						name="description"
+						type="textarea"
+						placeholder="Enter description here"
+						className="book-form__form__description"
+						handleChange={this.handleChange}
+						value={this.state.description}
+					/>
+
+					<FormInput
+						title="Publication Year"
+						name="publication_year"
+						type="text"
+						maxLength={4}
+						placeholder="Pub Year"
+						className="book-form__form__publication_year"
+						handleChange={this.handleChange}
+						value={this.state.publication_year}
+					/>
+
+					<StatusMessage
+						className="book-form__form__status-message"
+						status={this.state.statusMessage}
+					/>
+
+					<div className="book-form__form__buttons">
 						<FormButton
-							className="book-form__buttons__delete delete"
+							className="book-form__form__buttons__cancel"
 							type="button"
-							onClick={this.handleDelete}
-							title="Delete Record"
+							onClick={
+								this.state.editMode
+									? () =>
+											this.props.history.push(
+												`/detail/${this.state.id}`
+											)
+									: this.handleClear
+							}
+							title="Cancel"
 						/>
-					) : null}
-				</div>
-			</form>
+						<FormButton
+							className="book-form__form__buttons__submit"
+							type="button"
+							onClick={this.handleSubmit}
+							title={
+								this.state.editMode
+									? "Submit Changes"
+									: "Create Record"
+							}
+						/>
+						{this.state.editMode ? (
+							<FormButton
+								className="book-form__form__buttons__delete delete"
+								type="button"
+								onClick={this.handleDelete}
+								title="Delete Record"
+							/>
+						) : null}
+					</div>
+				</form>
+			</div>
 		);
 	}
 }

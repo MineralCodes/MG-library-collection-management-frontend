@@ -6,7 +6,7 @@ import { apiUrl } from "../../config";
 
 import BookRecord from "../utils/record";
 import SearchBar from "../search/searchBar";
-import PageTitle from "../utils/pateTitle";
+import PageTitle from "../utils/pageTitle";
 import Spacer from "../utils/spacer";
 
 class Home extends Component {

@@ -8,6 +8,7 @@ import * as actions from "../../../actions";
 import { apiUrl } from "../../../config";
 
 import { FormButton, FormInput } from "./formFields";
+import PageTitle from "../../utils/pageTitle";
 import StatusMessage from "../../utils/statusMessage";
 
 class SignUp extends Component {
@@ -97,6 +98,7 @@ class SignUp extends Component {
 	render() {
 		return (
 			<div className="sign-up">
+				<PageTitle className="sign-up__title" title="Sign Up" />
 				<form className="sign-up__form">
 					<FormInput
 						title="Email"

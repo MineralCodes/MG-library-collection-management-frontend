@@ -1,0 +1,78 @@
+.book-detail {
+	width: 800px;
+	display: grid;
+	grid-template-columns: [cover-s] 200px [cover-e info-s] 1fr [info-e];
+	grid-template-rows: [s] 1fr [e];
+	grid-gap: 20px;
+
+	&__title {
+		grid-column: 1/-1;
+	}
+
+	&__cover {
+		grid-column: cover-s/cover-e;
+		width: 100%;
+	}
+
+	&__info {
+		grid-column: info-s/info-e;
+		width: 100%;
+	}
+}
+
+.book-detail__info {
+	display: grid;
+	grid-template-columns: [s] 1fr [e button-s] 40px [button-e];
+	grid-template-rows: [title-s] 30px [title-e author-s] 40px [author-e description-s] 1fr [deiscription-e isbn-s] 20px [isbn-e date-s] 20px [date-e];
+
+	&__title {
+		grid-column: s/e;
+		grid-row: title-s/title-e;
+		font-size: 2rem;
+	}
+
+	&__author {
+		grid-column: s/e;
+		grid-row: author-s/author-e;
+		font-size: 1.4rem;
+	}
+
+	&__pub-year {
+		grid-column: s/e;
+		grid-row: title-s/title-e;
+		justify-self: end;
+		margin-right: 20px;
+		font-size: 1.4rem;
+		color: $medium-grey-one;
+	}
+
+	&__description {
+		grid-column: s/e;
+		grid-row: description-s/description-e;
+		font-size: 1.2rem;
+	}
+
+	&__isbn {
+		grid-column: s/e;
+		grid-row: isbn-s/isbn-e;
+		font-size: 1.2rem;
+	}
+
+	&__date {
+		grid-column: s/e;
+		grid-row: date-s/date-e;
+	}
+
+	&__edit-button {
+		grid-column: button-s/button-e;
+		grid-row: title-s/title-e;
+		font-size: 1.6rem;
+		color: $blue-one;
+		display: flex;
+		justify-content: center;
+
+		&:hover {
+			color: $blue-two;
+		}
+	}
+}

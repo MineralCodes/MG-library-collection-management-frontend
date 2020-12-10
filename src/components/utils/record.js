@@ -2,6 +2,8 @@ import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
+import CoverImage from "./coverImg";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class BookRecord extends Component {
@@ -18,10 +20,11 @@ class BookRecord extends Component {
 
 		const homePage = (
 			<Link to={`/detail/${id}`} className="book-record">
-				<img
-					src={`http://covers.openlibrary.org/b/isbn/${isbn}-M.jpg`}
+				<CoverImage
 					alt={`Title cover for ${title} by ${author}`}
 					className="book-record__cover"
+					isbn={isbn}
+					size="M"
 				/>
 				<div className="book-record__info">
 					<div className="book-record__info__title">{title}</div>
@@ -36,14 +39,21 @@ class BookRecord extends Component {
 		const searcResults = (
 			<div className={`search-record ${className}`}>
 				<Link to={`/detail/${id}`} className="search-record__cover">
-					<img
+					<CoverImage
 						src={`http://covers.openlibrary.org/b/isbn/${isbn}-M.jpg`}
 						alt={`Title cover for ${title} by ${author}`}
+						isbn={isbn}
+						size="M"
 					/>
 				</Link>
 
 				<div className="search-record__info">
-					<div className="search-record__info__title">{title}</div>
+					<Link
+						to={`/detail/${id}`}
+						className="search-record__info__title"
+					>
+						{title}
+					</Link>
 					<div className="search-record__info__author">{author}</div>
 					<div className="search-record__info__description">
 						{description}
