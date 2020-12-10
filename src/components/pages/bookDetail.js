@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { connect } from "react-redux";
 
 import { apiUrl } from "../../config";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import PageTitle from "../utils/pageTitle";
-import Spacer from "../utils/spacer";
 import CoverImage from "../utils/coverImg";
 
-export default class BookDetails extends Component {
+class BookDetails extends Component {
 	constructor(props) {
 		super(props);
 
@@ -72,17 +72,31 @@ export default class BookDetails extends Component {
 						{`Date Added: ${this.state.date_added}`}
 					</div>
 					<div className="book-detail__info__edit-button">
-						<Link
-							to={{
-								pathname: "/book/create",
-								state: { id: this.state.id, editMode: true },
-							}}
-						>
-							<FontAwesomeIcon icon="edit" />
-						</Link>
+						{this.props.logged_in ? (
+							<Link
+								to={{
+									pathname: "/book/create",
+									state: {
+										id: this.state.id,
+										editMode: true,
+									},
+								}}
+							>
+								<FontAwesomeIcon icon="edit" />
+							</Link>
+						) : null}
 					</div>
 				</div>
 			</div>
 		);
 	}
 }
+
+function mapStateToProps(state) {
+	const { logged_in } = state.user;
+	return { logged_in };
+}
+
+BookDetails = connect(mapStateToProps)(BookDetails);
+
+export default BookDetails;
