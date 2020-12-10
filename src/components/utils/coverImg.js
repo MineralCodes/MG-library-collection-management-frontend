@@ -21,7 +21,7 @@ export default class CoverImage extends Component {
 	componentDidMount() {
 		if (this.props.isbn) {
 			this.setState({
-				imgSrc: `http://covers.openlibrary.org/b/isbn/${this.props.isbn}-${this.props.size}.jpg`,
+				imgSrc: `https://covers.openlibrary.org/b/isbn/${this.props.isbn}-${this.props.size}.jpg`,
 			});
 		}
 	}
@@ -30,7 +30,7 @@ export default class CoverImage extends Component {
 		if (this.props.isbn != prevProps.isbn) {
 			this.setState({
 				imgSrc: this.props.isbn
-					? `http://covers.openlibrary.org/b/isbn/${this.props.isbn}-${this.props.size}.jpg`
+					? `https://covers.openlibrary.org/b/isbn/${this.props.isbn}-${this.props.size}.jpg`
 					: NotAvailable,
 			});
 		}
