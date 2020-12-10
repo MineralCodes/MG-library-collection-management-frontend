@@ -31,7 +31,6 @@ class Search extends Component {
 				this.setState({
 					bookData: resp.data.books,
 				});
-				console.log(resp);
 			})
 			.catch((err) => {
 				console.log(err);
@@ -52,7 +51,6 @@ class Search extends Component {
 					this.setState({
 						bookData: resp.data.books,
 					});
-					console.log(resp);
 				})
 				.catch((err) => {
 					console.log(err);
