@@ -2,30 +2,26 @@ import axios from "axios";
 
 import { apiUrl } from "../config";
 
-export function checkLoggedInStatus(userID, action) {
-	if (userID == 0) {
+export function checkLoggedInStatus(loggedIn, action) {
+	if (!loggedIn) {
 		console.log("checking logged in status");
 		axios
 			.post(`${apiUrl}/auth/validate`, {}, { withCredentials: true })
 			.then((resp) => {
-				if (resp.data.id > 0) {
-					const { id, email, user_role } = resp.data;
+				if (resp.data.user.id > 0) {
 					const userObject = {
-						id,
-						email,
-						user_role,
+						...resp.data.user,
 						logged_in: true,
 					};
 					action(userObject);
-				} else if ((resp.data.id = 0)) {
-					const { id, email, user_role } = resp.data;
+					return resp;
+				} else if ((resp.data.user.id = 0)) {
 					const userObject = {
-						id,
-						email,
-						user_role,
+						...resp.data.user,
 						logged_in: false,
 					};
 					action(userObject);
+					return resp;
 				}
 			})
 			.catch((err) => {

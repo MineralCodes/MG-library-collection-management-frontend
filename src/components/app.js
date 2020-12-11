@@ -27,7 +27,7 @@ class App extends Component {
 	}
 
 	componentDidMount() {
-		checkLoggedInStatus(this.props.id, this.props.setUserInfo);
+		checkLoggedInStatus(this.props.logged_in, this.props.setUserInfo);
 	}
 
 	render() {
