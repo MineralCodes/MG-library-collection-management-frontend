@@ -37,6 +37,7 @@ class SignIn extends Component {
 			email: "",
 			password: "",
 		});
+		this.props.history.goBack();
 	}
 
 	handleSubmit() {
@@ -92,7 +93,7 @@ class SignIn extends Component {
 						title="Email"
 						name="email"
 						type="email"
-						placeholder="Enter your email:"
+						placeholder="Enter your email"
 						className="sign-in__form__email"
 						handleChange={this.handleChange}
 						value={this.state.email}
@@ -102,7 +103,7 @@ class SignIn extends Component {
 						title="Password"
 						name="password"
 						type="password"
-						placeholder="Enter your password:"
+						placeholder="Enter your password"
 						className="sign-in__form__password"
 						handleChange={this.handleChange}
 						value={this.state.password}
@@ -128,7 +129,7 @@ class SignIn extends Component {
 						/>
 					</div>
 				</form>
-				<div className="sign-in__no-account">
+				<div className="sign-in__switch-form">
 					<div>Don't have an account?</div>
 					<Link to="/signup">Sign Up Here</Link>
 				</div>

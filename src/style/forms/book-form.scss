@@ -3,12 +3,16 @@
 }
 
 .book-form__form {
-	width: 800px;
+	width: 100%;
+	max-width: 800px;
 	display: grid;
 	grid-template-columns: [s] 1fr [e];
-	grid-template-rows: [title-s] 40px [title-e author-s] 40px [author-e isbn-s] 40px [isbn-e description-s] 100px [description-e pubyear-s] 40px [pubyear-e space-s] 40px [space-e buttons-s] 40px [buttons-e];
+	grid-template-rows:
+		[title-s] 40px [title-e author-s] 40px [author-e isbn-s] 40px [isbn-e description-s] fit-content(
+			300px
+		)
+		[description-e pubyear-s] 40px [pubyear-e space-s] 40px [space-e buttons-s] 40px [buttons-e];
 	grid-gap: 10px;
-	align-items: center;
 	justify-items: center;
 
 	&__title {
@@ -37,22 +41,29 @@
 	}
 
 	&__buttons {
-		width: 570px;
+		width: 90%;
+		max-width: 800px;
+		display: grid;
 		grid-column: 1/-1;
 		grid-row: buttons-s/buttons-e;
 
 		display: grid;
+		grid-template-columns:
+			[cancel-s] fit-content(200px) [cancel-e submit-s] fit-content(200px)
+			[submit-e delete-s] fit-content(200px) [delete-e];
 		grid-template-rows: [s] 1fr [e];
-		grid-template-columns: [cancel-s] 0.5fr [cancel-e submit-s] 1fr [submit-e delete-s] 1fr [delete-e];
 		justify-items: start;
 
 		&__cancel {
 			grid-row: s/e;
 			grid-column: cancel-s/cancel-e;
+			width: 90px;
+			margin-right: 15px;
 		}
 		&__submit {
 			grid-row: s/e;
 			grid-column: submit-s/submit-e;
+			margin-right: 15px;
 		}
 		&__delete {
 			grid-row: s/e;

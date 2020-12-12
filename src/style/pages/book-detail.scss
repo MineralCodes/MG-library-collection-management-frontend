@@ -1,9 +1,10 @@
 .book-detail {
-	width: 800px;
+	@include page-layout();
 	display: grid;
 	grid-template-columns: [cover-s] 200px [cover-e info-s] 1fr [info-e];
 	grid-template-rows: [s] 1fr [e];
 	grid-gap: 20px;
+	align-items: start;
 
 	&__title {
 		grid-column: 1/-1;
@@ -23,7 +24,7 @@
 .book-detail__info {
 	display: grid;
 	grid-template-columns: [s] 1fr [e button-s] 40px [button-e];
-	grid-template-rows: [title-s] 30px [title-e author-s] 40px [author-e description-s] 1fr [deiscription-e isbn-s] 20px [isbn-e date-s] 20px [date-e];
+	grid-template-rows: [title-s] 30px [title-e author-s] 40px [author-e description-s] 1fr [description-e isbn-s] 20px [isbn-e date-s] 20px [date-e];
 
 	&__title {
 		grid-column: s/e;

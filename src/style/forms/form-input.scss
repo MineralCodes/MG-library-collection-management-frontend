@@ -1,10 +1,15 @@
-.form-input {
+.form-input,
+.form-textarea,
+.select-field {
 	display: grid;
-	grid-template-columns: [label-s] 150px [label-e input-s] 400px [input-e];
+	width: 90%;
+	grid-template-columns: [label-s] 100px [label-e input-s] 600px [input-e];
 	grid-template-rows: 1fr;
 	grid-gap: 20px;
 	align-items: center;
+}
 
+.form-input {
 	&__label {
 		grid-column: label-s/label-e;
 		font-size: 1.4rem;
@@ -13,16 +18,12 @@
 	&__input {
 		@include base-input();
 		grid-column: input-s/input-e;
+		justify-self: start;
+		width: 90%;
 	}
 }
 
 .form-textarea {
-	display: grid;
-	grid-template-columns: [label-s] 150px [label-e input-s] 400px [input-e];
-	grid-template-rows: 1fr;
-	grid-gap: 20px;
-	align-items: center;
-
 	&__label {
 		grid-column: label-s/label-e;
 		font-size: 1.4rem;
@@ -32,17 +33,15 @@
 		@include base-input();
 		grid-column: input-s/input-e;
 		height: 100px;
+		max-height: 300px;
+		min-height: 100px;
+		max-width: 90%;
+		min-width: 90%;
 		font-family: inherit;
 	}
 }
 
 .select-field {
-	display: grid;
-	grid-template-columns: [label-s] 150px [label-e input-s] 400px [input-e];
-	grid-template-rows: 1fr;
-	grid-gap: 20px;
-	align-items: center;
-
 	&__label {
 		grid-column: label-s/label-e;
 		font-size: 1.4rem;
@@ -52,5 +51,6 @@
 		@include base-input();
 		border-radius: 10px 0px 0px 10px;
 		grid-column: input-s/input-e;
+		width: 90%;
 	}
 }

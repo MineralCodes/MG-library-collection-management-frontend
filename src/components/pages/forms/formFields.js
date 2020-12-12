@@ -51,7 +51,7 @@ export class FormTextArea extends Component {
 					className={`form-textarea__textarea`}
 					type={type}
 					placeholder={placeholder}
-					value={value}
+					value={value ? value : ""}
 					onChange={handleChange}
 					onKeyUp={handleKeyup}
 				/>

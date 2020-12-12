@@ -1,5 +1,5 @@
 .book-record {
-	width: 150px;
+	width: calc(800px / 5);
 	display: grid;
 	grid-template-columns: [s] 1fr [e];
 	grid-template-rows: [s] 1fr [e];
@@ -11,8 +11,8 @@
 	}
 
 	&__cover {
-		width: 150px;
-		height: 200px;
+		width: calc(800px / 5);
+		height: 210px;
 	}
 
 	&__info {

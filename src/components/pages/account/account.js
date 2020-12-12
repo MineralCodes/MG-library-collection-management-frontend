@@ -23,13 +23,13 @@ class Account extends Component {
 			<div className="account">
 				<PageTitle className="account__title" title="User Account" />
 
-				<Spacer default-size="50" />
+				<Spacer defaultSize="50" />
 
 				<div className="account__intro">
 					Stay tuned for more user account features.
 				</div>
 
-				<Spacer default-size="50" />
+				<Spacer defaultSize="50" />
 
 				<div className="account__info">
 					<div className="account__info__title">Account Details</div>

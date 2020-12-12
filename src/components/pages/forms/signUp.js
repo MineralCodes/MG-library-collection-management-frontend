@@ -38,6 +38,7 @@ class SignUp extends Component {
 			password: "",
 			statusMessage: "",
 		});
+		this.props.history.goBack();
 	}
 
 	componentDidUpdate(prevProps) {
@@ -150,7 +151,7 @@ class SignUp extends Component {
 						/>
 					</div>
 				</form>
-				<div className="sign-up__have-account">
+				<div className="sign-up__switch-form">
 					<div>Already have an account?</div>
 					<Link to="/signin">Sign In Here</Link>
 				</div>

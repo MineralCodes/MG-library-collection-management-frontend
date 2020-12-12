@@ -8,7 +8,8 @@
 
 	&__info {
 		margin-bottom: 50px;
-		width: 600px;
+		width: 100%;
+		max-width: 600px;
 		&__title {
 			font-size: 1.6rem;
 			font-weight: 600;
@@ -21,7 +22,8 @@
 	}
 
 	&__password {
-		width: 600px;
+		width: 100%;
+		max-width: 600px;
 	}
 }
 

@@ -44,6 +44,7 @@ export default class BookForm extends Component {
 			description: "",
 			pubYear: "",
 		});
+		this.props.history.goBack();
 	}
 
 	hydrateState(data) {

@@ -65,7 +65,7 @@
 .search-record__info {
 	width: 100%;
 	display: grid;
-	grid-template-columns: [content-s] 1fr [content-e buttons-s] 40px [buttons-e];
+	grid-template-columns: [content-s] 1fr [content-e];
 	grid-template-rows:
 		[title-s] 20px [title-e author-s] 20px [author-e description-s] minmax(
 			50px,

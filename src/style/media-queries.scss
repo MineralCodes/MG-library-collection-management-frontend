@@ -3,6 +3,7 @@
 		flex-direction: column;
 		height: auto;
 		padding: 10px;
+		width: calc(100vw - 20px);
 
 		&__left,
 		&__center,
@@ -18,6 +19,12 @@
 
 		&__right {
 			order: 2;
+		}
+	}
+
+	.footer {
+		&__account {
+			display: none;
 		}
 	}
 
@@ -38,5 +45,78 @@
 				}
 			}
 		}
+	}
+
+	.search-record {
+		grid-template-rows: [s] 1fr [buttons-s] 40px [buttons-e e];
+
+		&__info {
+			grid-template-rows: [title-s] minmax(30px, 50px) [title-e author-s] 20px [author-e pub-year-s] 20px [pub-year-e];
+			&__description {
+				display: none;
+			}
+			&__pub-year {
+				grid-column: content-s/content-e;
+				grid-row: pub-year-s/pub-year-e;
+				justify-self: start;
+			}
+		}
+	}
+
+	.book-detail {
+		grid-template-columns: [cover-s] 150px [cover-e info-s] 1fr [info-e];
+		grid-template-rows: [s] 1fr [e];
+		height: 100%;
+
+		&__title {
+			display: none;
+		}
+
+		&__cover {
+			width: 150px;
+			justify-self: start;
+			margin-top: 7px;
+		}
+
+		&__info {
+			grid-template-rows:
+				[title-s] fit-content(80px)
+				[title-e author-s] 20px [author-e pub-year-s] 20px [pub-year-e description-s] fit-content(
+					200px
+				)
+				[description-e isbn-s] 20px [isbn-e date-s] 30px [date-e];
+			grid-template-columns: [s] 1fr [e];
+			grid-row-gap: 10px;
+
+			&__pub-year {
+				grid-row: pub-year-s/pub-year-e;
+				justify-self: start;
+			}
+		}
+	}
+
+	.form-input,
+	.form-textarea,
+	.select-field {
+		grid-template-columns: [label-s] 60px [label-e input-s] 1fr [input-e];
+	}
+
+	.sign-in,
+	.sign-up {
+		grid-template-columns: [form-s] 1fr [form-e];
+		grid-template-rows:
+			[title-s] 50px [title-e form-s] 1fr [form-e space-s] 50px [space-e sign-up-s] fit-content(
+				50px
+			)
+			[sign-up-e];
+
+		&__switch-form {
+			grid-column: form-s/form-e;
+			grid-row: sign-up-s/sign-up-e;
+		}
+	}
+
+	.book-form__form {
+		justify-content: start;
 	}
 }
