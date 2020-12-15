@@ -163,6 +163,7 @@ export default class BookForm extends Component {
 						title="Book Title"
 						name="title"
 						type="text"
+						maxLength={100}
 						placeholder="Enter Book Title"
 						className="book-form__form__title"
 						handleChange={this.handleChange}
@@ -193,6 +194,7 @@ export default class BookForm extends Component {
 						title="Description"
 						name="description"
 						type="textarea"
+						maxLength={500}
 						placeholder="Enter description here"
 						className="book-form__form__description"
 						handleChange={this.handleChange}

@@ -42,6 +42,7 @@ export class FormTextArea extends Component {
 			name,
 			handleChange,
 			handleKeyup,
+			maxLength,
 		} = this.props;
 		return (
 			<div className={`form-textarea ${className}`}>
@@ -54,6 +55,7 @@ export class FormTextArea extends Component {
 					value={value ? value : ""}
 					onChange={handleChange}
 					onKeyUp={handleKeyup}
+					maxLength={maxLength}
 				/>
 			</div>
 		);

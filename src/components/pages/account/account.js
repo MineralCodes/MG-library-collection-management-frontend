@@ -10,11 +10,15 @@ import Spacer from "../../utils/spacer";
 class Account extends Component {
 	componentDidUpdate(prevProps) {
 		if (this.props.logged_in != prevProps.logged_in) {
-			return null;
-		} else {
 			if (!this.props.logged_in) {
 				this.props.history.push("/signin");
 			}
+		}
+	}
+
+	componentDidMount() {
+		if (!this.props.logged_in) {
+			this.props.history.push("/signin");
 		}
 	}
 
